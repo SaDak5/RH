@@ -1,0 +1,23 @@
+<div class="container">
+
+<div class="col-sm-4 col-md-4 col-lg-4 mb-4"> 
+    <app-update-absence [absence]="updatedAbs" (absenceUpdated)= "absenceUpdated($event)" [ajout]="ajout"></app-update-absence>
+</div>
+    <div class="card-body">
+    <table class="table table-striped">
+    <thead>
+    <tr> <th>Id</th><th>heures d'absences</th><th>type Absence</th> <th>statut</th>  </tr>
+    </thead>
+    <tbody *ngFor="let ab of absences">
+    <tr>
+    <td>{{ab.idAbs}}</td>
+    <td>{{ab.heuresAbs}}</td>
+    <td>{{ab.typeAbs}}</td>
+    <td>{{ab.statut}}</td>
+    <td><a class="btn btn-success"  (click)="updateAbs(ab)">Editer</a></td>
+    <td><a class="btn btn-danger" (click)="supprimerAbsence(ab)">Supprimer</a></td> 
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    </div>
