@@ -1,26 +1,38 @@
-<form>
-    <div *ngIf="!ajout">
-        <label>ID absence</label>
-        <input type="text" [(ngModel)]="absence.idAbs" name="idAssiduite" class="form-control w-25">
-    </div>
+<div class="container">
     <div>
-        <label>heures d'absences</label>
-        <input type="text" [(ngModel)]="absence.heuresAbs" name="heuresAbs" class="form-control"
-            placeholder="entrer les nombres d'heures" (input)="updateFields()">
+        <h2>Modifier mon assiduité:</h2>
     </div>
-    <div>
-        <label>Type absence</label>
-        <input type="text" [(ngModel)]="absence.typeAbs" name="typeAbs" class="form-control"
-            placeholder="entrer le type d'absence"  (input)="updateFields()">
-    </div>
-    <div>
-        <label>Statut</label>
-        <input type="text" [(ngModel)]="absence.statut" name="statut" class="form-control"
-            placeholder="entrer le statut"  (input)="updateFields()">
-    </div>
-    <div class="mt-2">
-        <button type="submit" [disabled]="!absence.heuresAbs" class="btn btn-success" (click)="saveAbsence()">
-            {{ ajout ? 'Ajouter' : 'Modifier' }}
-        </button>
-    </div>
-</form>
+    <form>
+        <div  class="col-sm-2 col-md-2 col-lg-2">
+            <label>ID </label>
+            <input readonly type="text" [(ngModel)]="currentAbsence.idAbs" name="idAbs" class="form-control">
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>heures Abs</label>
+            <input type="number" [(ngModel)]="currentAbsence.heuresAbs" name="heuresAbs" class="form-control">
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label>type Abs</label>
+            <input type="text" [(ngModel)]="currentAbsence.typeAbs" name="typeAbs" class="form-control">
+        </div>
+
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label>statut</label>
+            <input type="text" [(ngModel)]="currentAbsence.statut" name="statut" class="form-control">
+        </div>
+       
+
+         <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Id assiduite</label>
+            <select class="form-control form-control-lg" id="idAbs" name="idAbs" [(ngModel)]="updatedAsId">
+                <option *ngFor="let ab of assiduites" [value]="ab.idAssiduite">
+                    {{ab.idAssiduite}}
+                </option>  
+            </select>
+        </div> 
+
+        <div class="mt-2">
+            <button type="submit" (click)="updateAbsence()" class="btn btn-success">Modifer</button>
+        </div>
+    </form>
+</div>

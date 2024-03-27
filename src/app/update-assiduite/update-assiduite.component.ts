@@ -21,7 +21,7 @@ export class UpdateAssiduiteComponent {
 
     ngOnInit(): void {
       this.personnelService.listeAbsences().
-      subscribe(abs => {this.absences = abs._embedded.absences;
+      subscribe(abs => {this.absences = abs;
       console.log(abs);
       });
       this.personnelService.consulterAssiduite(this.activatedRoute.snapshot.params['id']).

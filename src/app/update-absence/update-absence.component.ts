@@ -1,49 +1,43 @@
-import {Component,EventEmitter,Input,OnInit, Output } from '@angular/core';
+import { PersonnelService } from './../services/Personnel.Service';
+
+import {Component } from '@angular/core';
 import { Absence } from '../model/absence.model';
+import { Assiduite } from '../model/assiduite.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-update-absence',
   templateUrl: './update-absence.component.html',
   styleUrls: ['./update-absence.component.css']
 })
-export class UpdateAbsenceComponent implements OnInit {
+export class UpdateAbsenceComponent  {
 
-  @Input()
-  absence! : Absence;
-
-  @Input()
-ajout!:boolean;
-
-  @Output()
-  absenceUpdated = new EventEmitter<Absence>();
+  currentAbsence = new Absence();
+ assiduites! : Assiduite[];
+  updatedAsId! : number;
   
-constructor(){}
-ngOnInit(): void {
- console.log("ngOnInit du composant UpdateAbsence ",this.absence);
-}
-saveAbsence(){
- this.absenceUpdated.emit(this.absence);
- }
+  constructor(private activatedRoute: ActivatedRoute,
+    private router :Router,
+    private personnelService: PersonnelService) { }
 
+    ngOnInit(): void {
+      this.personnelService.listeAssiduite().
+      subscribe(abs => {this.assiduites = abs;
+      console.log(abs);
+      });
+      this.personnelService.consulterAbsence(this.activatedRoute.snapshot.params['id']).
+      subscribe( as =>{ this.currentAbsence = as;
+      this.updatedAsId =this.currentAbsence.assiduite.idAssiduite;
+      } ) ;
+      }
+   //   
 
- modeAjout()
-  {
-    this.ajout=true;
-    this.absence.idAbs = 0;
-    this.absence.heuresAbs="";
-    this.absence.typeAbs="";
-    this.absence.statut="";
-  }
-  
-  updateFields() {
    
-      // Only update typeAbs and statut if they are empty
-      if (!this.absence.typeAbs) {
-        this.absence.typeAbs = "";
-      }
-      if (!this.absence.statut) {
-        this.absence.statut = "";
-      }
+  updateAbsence(){
+      this.currentAbsence.assiduite=this.assiduites?.find(ab=>ab.idAssiduite==this.updatedAsId)!;
+      this.personnelService.updateAbsence(this.currentAbsence).subscribe(as => {
+      this.router.navigate(['/listeAbsences']);
+      }); 
     }
     
 }

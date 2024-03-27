@@ -1,6 +1,6 @@
 <div class="container">
     <div class="mb-4">
-        <h2>Liste des contrats</h2>
+        <h2>Liste des assiduites</h2>
         <button type="button" class="btn btn-primary" routerLink="/addAssiduite">Ajouter un Assiduite</button>
     </div>
     <div class="card shadow">
@@ -12,7 +12,7 @@
                             <th scope="col">ID</th>
                             <th scope="col">Nb Heures Travaillées</th>
                             <th scope="col">Nb Heures Supplementaires</th>
-                            <th scope="col">Heures Absences</th>
+                            <th scope="col">total d'absences</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -21,7 +21,7 @@
                             <td>{{ assiduite.idAssiduite }}</td>
                             <td>{{ assiduite.nbHeures }}</td>
                             <td>{{ assiduite.heuresSupp }}</td>
-                            <td>{{ assiduite.absence?.heuresAbs }}</td>
+                            <td>{{ assiduite.totalAbsences }}</td>
                             <td>
                                 <button type="button" class="btn btn-danger" (click)="supprimerAssiduite(assiduite)">Supprimer</button>
                                 <a class="btn btn-warning" [routerLink]="['/updateAssiduite',assiduite.idAssiduite]">Modifier</a>

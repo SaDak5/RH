@@ -1,23 +1,39 @@
 <div class="container">
-
-<div class="col-sm-4 col-md-4 col-lg-4 mb-4"> 
-    <app-update-absence [absence]="updatedAbs" (absenceUpdated)= "absenceUpdated($event)" [ajout]="ajout"></app-update-absence>
+  <div class="mb-4">
+      <h2>Liste des absences</h2>
+      <button type="button" class="btn btn-primary" routerLink="/addAbsence">Ajouter un Absence</button>
+     
+  </div>
+  <div class="card shadow">
+      <div class="card-body">
+          <div class="table-responsive">
+              <table class="table table-striped">
+                  <thead>
+                      <tr>
+                          <th scope="col">ID</th>
+                          <th scope="col">heuresAbs</th>
+                          <th scope="col">type</th>
+                          <th scope="col">statut</th>
+                          <th scope="col">idAssiduite</th>
+                          <th scope="col">Actions</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let a of absences">
+                          <td>{{ a.idAbs }}</td>
+                          <td>{{ a.heuresAbs }}</td>
+                          <td>{{ a.typeAbs }}</td>
+                          <td>{{ a.statut }}</td>
+                          <td>{{ a.assiduite?.idAssiduite }}</td>
+                          <td>
+                          <button type="button" class="btn btn-danger" (click)="supprimerAbsence(a)">Supprimer</button>
+                       
+                          <a class="btn btn-warning" [routerLink]="['/updateAbsence',a.idAbs]">Modifier</a>
+                        </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
 </div>
-    <div class="card-body">
-    <table class="table table-striped">
-    <thead>
-    <tr> <th>Id</th><th>heures d'absences</th><th>type Absence</th> <th>statut</th>  </tr>
-    </thead>
-    <tbody *ngFor="let ab of absences">
-    <tr>
-    <td>{{ab.idAbs}}</td>
-    <td>{{ab.heuresAbs}}</td>
-    <td>{{ab.typeAbs}}</td>
-    <td>{{ab.statut}}</td>
-    <td><a class="btn btn-success"  (click)="updateAbs(ab)">Editer</a></td>
-    <td><a class="btn btn-danger" (click)="supprimerAbsence(ab)">Supprimer</a></td> 
-    </tr>
-    </tbody>
-    </table>
-    </div>
-    </div>

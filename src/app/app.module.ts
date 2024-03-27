@@ -8,7 +8,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UpdateAssiduiteComponent } from './update-assiduite/update-assiduite.component';
 import { AddAssiduiteComponent } from './add-assiduite/add-assiduite.component';
-import { SideBarComponent } from './side-bar/side-bar.component';
 import { ListeAbsencesComponent } from './liste-absences/liste-absences.component';
 import { UpdateAbsenceComponent } from './update-absence/update-absence.component';
 import { DocumentsComponent } from './documents/documents.component';
@@ -17,6 +16,22 @@ import { AddDocumentComponent } from './add-document/add-document.component';
 import { ContratComponent } from './contrat/contrat.component';
 import { AddContratComponent } from './add-contrat/add-contrat.component';
 import { UpdateContratComponent } from './update-contrat/update-contrat.component';
+import { PersonnelComponent } from './personnel/personnel.component';
+import { ProfilPersonnelComponent } from './profil-personnel/profil-personnel.component';
+import { ListeDepartementsComponent } from './liste-departements/liste-departements.component';
+import { ListecongeComponent } from './listeconge/listeconge.component';
+import { ListepretComponent } from './listepret/listepret.component';
+import { UpdatePersonnelComponent } from './update-personnel/update-personnel.component';
+import { UpdateCongeComponent } from './update-conge/update-conge.component';
+import { UpdatePretComponent } from './update-pret/update-pret.component';
+import { RechercheParNomComponent } from './recherche-par-nom/recherche-par-nom.component';
+import { RechercheParDepartementComponent } from './recherche-par-departement/recherche-par-departement.component';
+import { AddPersonnelComponent } from './add-personnel/add-personnel.component';
+import { AddCongeComponent } from './add-conge/add-conge.component';
+import { AddPretComponent } from './add-pret/add-pret.component';
+import { AddDepartementComponent } from './add-departement/add-departement.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { AddAbsenceComponent } from './add-absence/add-absence.component';
 
 
 @NgModule({
@@ -25,7 +40,6 @@ import { UpdateContratComponent } from './update-contrat/update-contrat.componen
     AssiduitesComponent,
     UpdateAssiduiteComponent,
     AddAssiduiteComponent,
-    SideBarComponent,
     ListeAbsencesComponent,
     UpdateAbsenceComponent,
     DocumentsComponent,
@@ -33,7 +47,23 @@ import { UpdateContratComponent } from './update-contrat/update-contrat.componen
     AddDocumentComponent,
     ContratComponent,
     AddContratComponent,
-    UpdateContratComponent
+    UpdateContratComponent,
+    PersonnelComponent,
+    ProfilPersonnelComponent,
+    ListeDepartementsComponent,
+    ListecongeComponent,
+    ListepretComponent,
+    UpdatePersonnelComponent,
+    UpdateCongeComponent,
+    UpdatePretComponent,
+    RechercheParNomComponent,
+    RechercheParDepartementComponent,
+    AddPersonnelComponent,
+    AddCongeComponent,
+    AddPretComponent,
+    AddDepartementComponent,
+    SidebarComponent,
+    AddAbsenceComponent
   ],
   imports: [
     BrowserModule,
