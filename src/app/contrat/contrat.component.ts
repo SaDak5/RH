@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Contrat } from '../model/contrat.model';
 import { PersonnelService } from '../services/Personnel.Service';
+import { AuthService } from '../services/auth.Service';
 
 @Component({
   selector: 'app-contrat',
@@ -9,12 +10,10 @@ import { PersonnelService } from '../services/Personnel.Service';
   styleUrls: ['./contrat.component.css']
 })
 export class ContratComponent implements OnInit {
-addContrat(arg0: any) {
-throw new Error('Method not implemented.');
-}
+
  contrats? : Contrat[] ;
 
-  constructor( private personnelService: PersonnelService ,private router: Router ) {
+  constructor( private personnelService: PersonnelService ,private router: Router,public authService: AuthService) {
   
       }
 

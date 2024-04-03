@@ -3,6 +3,7 @@ import { Absence } from '../model/absence.model';
 import { PersonnelService } from '../services/Personnel.Service';
 import { Assiduite } from '../model/assiduite.model';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.Service';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class ListeAbsencesComponent implements OnInit {
   absences? : Absence[] ;
-  constructor( private personnelService: PersonnelService ,private router: Router ) {
+  constructor( private personnelService: PersonnelService ,private router: Router,public authService: AuthService) {
   
       }
  

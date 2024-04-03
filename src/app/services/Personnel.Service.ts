@@ -46,10 +46,10 @@ const httpOptions = {
         let jwt = this.authService.getToken();
         jwt = "Bearer "+jwt;
         let httpHeaders = new HttpHeaders({"Authorization":jwt})
-        return this.http.post<Assiduite>(this.apiURLAs+"/addprod", as, {headers:httpHeaders});
+        return this.http.post<Assiduite>(this.apiURLAs+"/addass", as, {headers:httpHeaders});
         }
         supprimerAssiduite(id : number) {
-        const url = `${this.apiURLAs}/delprod/${id}`;
+        const url = `${this.apiURLAs}/delass/${id}`;
         let jwt = this.authService.getToken();
         jwt = "Bearer "+jwt;
         let httpHeaders = new HttpHeaders({"Authorization":jwt})
@@ -66,7 +66,7 @@ const httpOptions = {
         let jwt = this.authService.getToken();
         jwt = "Bearer "+jwt;
         let httpHeaders = new HttpHeaders({"Authorization":jwt})
-        return this.http.put<Assiduite>(this.apiURLAs+"/updateprod", as, {headers:httpHeaders});
+        return this.http.put<Assiduite>(this.apiURLAs+"/updateass", as, {headers:httpHeaders});
         }
   
 

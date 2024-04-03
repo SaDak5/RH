@@ -1,5 +1,5 @@
 <!-- personnel-update.component.html -->
-
+<app-navbar></app-navbar>
 <div class="container">
     <div>
       <h2>Modifier Personnel :</h2>
@@ -39,6 +39,12 @@
         <div class="mb-3">
           <label for="numTelephone" class="form-label">Numero Telephone:</label>
           <input type="text" [(ngModel)]="currentPersonnel.numTelephone" id="numTelephone" name="numTelephone"
+            class="form-control">
+        </div>
+
+        <div class="mb-3">
+          <label for="numTelephone" class="form-label">Numero CIN:</label>
+          <input type="text" [(ngModel)]="currentPersonnel.numCin" id="numCin" name="numCin"
             class="form-control">
         </div>
   

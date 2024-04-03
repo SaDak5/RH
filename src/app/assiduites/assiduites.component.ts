@@ -2,6 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { Assiduite } from '../model/assiduite.model';
 import { Router } from '@angular/router';
 import { PersonnelService } from '../services/Personnel.Service';
+import { AuthService } from '../services/auth.Service';
 
 @Component({
   selector: 'app-assiduites',
@@ -10,7 +11,7 @@ import { PersonnelService } from '../services/Personnel.Service';
 })
 export class AssiduitesComponent implements OnInit {
   assiduites? : Assiduite[] ;
-  constructor( private personnelService: PersonnelService ,private router: Router ) {
+  constructor( private personnelService: PersonnelService ,public authService: AuthService) {
   
       }
  

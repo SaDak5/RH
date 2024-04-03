@@ -2,6 +2,7 @@ import { PersonnelService } from './../services/Personnel.Service';
 import { Personnel } from './../model/personnel.model';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.Service';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class PersonnelComponent implements OnInit {
   allPersonnels! : Personnel[];
   searchTerm!: string;
   constructor(private personnelService : PersonnelService,
-    private router : Router){}
+    private router : Router,public authService : AuthService){}
 
   ngOnInit(): void {
     this.chargerPersonnels() ;

@@ -1,10 +1,11 @@
+<app-navbar></app-navbar>
 <div class="container">
     <div>
       <h2>Ajouter un Personnel :</h2>
     </div>
     <form class="row">
       <div class="col-md-6">
-        <div class="mb-3">
+        <div class="mb-3" [hidden]="true">
           <label for="idPersonnel" class="form-label">Id Personnel :</label>
           <input type="text" [(ngModel)]="newPersonnel.idPersonnel" name="idPersonnel" class="form-control" placeholder="Entrez l'ID" required>
         </div>
@@ -36,6 +37,11 @@
         <div class="mb-3">
           <label for="numTelephone" class="form-label">Numero Telephone :</label>
           <input type="text" [(ngModel)]="newPersonnel.numTelephone" name="numTelephone" class="form-control" placeholder="Entrez Le Telephone d'un Personnel" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="numTelephone" class="form-label">Numero CIN :</label>
+          <input type="text" [(ngModel)]="newPersonnel.numCin" name="numCin" class="form-control" placeholder="Entrez Le cin" required>
         </div>
         <div class="mb-3">
           <label for="adresse" class="form-label">Adresse :</label>

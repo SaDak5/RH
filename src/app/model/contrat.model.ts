@@ -1,3 +1,4 @@
+import { Personnel } from "./personnel.model";
 
 export class Contrat {
     idContrat! : number;
@@ -5,6 +6,7 @@ export class Contrat {
     dateEmbauche!:Date;
     dateSignature!:Date;
     nomSociete!:string;
+    personnel!:Personnel;
 
     }
     

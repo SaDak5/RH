@@ -2,6 +2,7 @@ import { PersonnelService } from './../services/Personnel.Service';
 import { Component, OnInit } from '@angular/core';
 import { Conge } from '../model/conge.model';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.Service';
 
 @Component({
   selector: 'app-listeconge',
@@ -14,7 +15,7 @@ export class ListecongeComponent implements OnInit {
   
   
   constructor(private personnelService : PersonnelService,
-    private router : Router){
+    private router : Router,public authService : AuthService){
 
   }
 

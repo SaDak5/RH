@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AssiduitesComponent } from './assiduites/assiduites.component';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UpdateAssiduiteComponent } from './update-assiduite/update-assiduite.component';
 import { AddAssiduiteComponent } from './add-assiduite/add-assiduite.component';
 import { ListeAbsencesComponent } from './liste-absences/liste-absences.component';
@@ -32,6 +31,12 @@ import { AddPretComponent } from './add-pret/add-pret.component';
 import { AddDepartementComponent } from './add-departement/add-departement.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AddAbsenceComponent } from './add-absence/add-absence.component';
+
+import { NavbarComponent } from './navbar/navbar.component';
+import { LoginComponent } from './login/login.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { TokenInterceptor } from './services/token.interceptor';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -63,15 +68,25 @@ import { AddAbsenceComponent } from './add-absence/add-absence.component';
     AddPretComponent,
     AddDepartementComponent,
     SidebarComponent,
-    AddAbsenceComponent
+    AddAbsenceComponent,
+    
+    NavbarComponent,
+    LoginComponent,
+    ForbiddenComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
+
   ],
-  providers: [],
+  providers: [{ provide : HTTP_INTERCEPTORS,
+    useClass : TokenInterceptor,
+    multi : true}
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

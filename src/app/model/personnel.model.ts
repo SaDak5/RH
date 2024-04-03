@@ -8,6 +8,7 @@ export class Personnel {
 	dateNaissance! : Date;
 	email! : String;
 	numTelephone! : number;
+	numCin! : String;
 	adresse! : String;
 	fonction! :String ;
 	departement!: Departement;

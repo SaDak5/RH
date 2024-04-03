@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <div class="container">
     <div>
         <h2>Ajouter un contrat :</h2>
@@ -24,6 +25,12 @@
             <label>nom du société</label>
             <input type="text" [(ngModel)]="newContrat.nomSociete" name="nomSociete" class="form-control">
         </div>
+
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label>ID personnel</label>
+            <input type="text" [(ngModel)]="newContrat.personnel.idPersonnel" name="idPersonnel" class="form-control">
+        </div>
+   
    
         <div class="mt-2">
             

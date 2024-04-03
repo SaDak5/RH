@@ -26,6 +26,11 @@ import { ListepretComponent } from './listepret/listepret.component';
 import { UpdateCongeComponent } from './update-conge/update-conge.component';
 import { UpdatePretComponent } from './update-pret/update-pret.component';
 import { AddAbsenceComponent } from './add-absence/add-absence.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { LoginComponent } from './login/login.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { RegisterComponent } from './register/register.component';
 const routes: Routes = [
   {path: "assiduites", component : AssiduitesComponent},
   {path: "addAssiduite", component : AddAssiduiteComponent},
@@ -57,8 +62,12 @@ const routes: Routes = [
   {path: "updatePret/:idPret", component: UpdatePretComponent},
   {path: "addAbsence", component: AddAbsenceComponent},
   {path: "updateAbsence/:id", component :UpdateAbsenceComponent},
-  
-  { path: "", redirectTo: "assiduites", pathMatch: "full" }
+  {path: "sidebar", component: SidebarComponent},
+  {path: "navbar", component: NavbarComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'app-forbidden', component: ForbiddenComponent},
+  {path:'register',component:RegisterComponent},
+  {path: "", redirectTo: "sidebar", pathMatch: "full" }
 ];
 
 @NgModule({

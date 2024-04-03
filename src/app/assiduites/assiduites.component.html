@@ -1,7 +1,8 @@
+<app-navbar></app-navbar>
 <div class="container">
     <div class="mb-4">
-        <h2>Liste des assiduites</h2>
-        <button type="button" class="btn btn-primary" routerLink="/addAssiduite">Ajouter un Assiduite</button>
+        <h2>Liste des assiduite</h2>
+        <a *ngIf="authService.isAdmin()" type="button" class="btn btn-primary" routerLink="/addAssiduite">Ajouter un Assiduite</a>
     </div>
     <div class="card shadow">
         <div class="card-body">
@@ -12,7 +13,7 @@
                             <th scope="col">ID</th>
                             <th scope="col">Nb Heures Travaillées</th>
                             <th scope="col">Nb Heures Supplementaires</th>
-                            <th scope="col">total d'absences</th>
+                            <th scope="col">totalAbsences</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -21,10 +22,10 @@
                             <td>{{ assiduite.idAssiduite }}</td>
                             <td>{{ assiduite.nbHeures }}</td>
                             <td>{{ assiduite.heuresSupp }}</td>
-                            <td>{{ assiduite.totalAbsences }}</td>
-                            <td>
-                                <button type="button" class="btn btn-danger" (click)="supprimerAssiduite(assiduite)">Supprimer</button>
-                                <a class="btn btn-warning" [routerLink]="['/updateAssiduite',assiduite.idAssiduite]">Modifier</a>
+                            <td>{{assiduite.totalAbsences}}</td>
+                            
+                            <td><a *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="supprimerAssiduite(assiduite)">Supprimer</a></td>
+                            <td><a *ngIf="authService.isAdmin()" class="btn btn-warning" [routerLink]="['/updateAssiduite',assiduite.idAssiduite]">Modifier</a>
                             </td>
                         </tr>
                     </tbody>

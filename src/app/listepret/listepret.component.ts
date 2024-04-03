@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Pret } from '../model/pret.model';
 import { PersonnelService } from '../services/Personnel.Service';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.Service';
 
 @Component({
   selector: 'app-listepret',
@@ -15,7 +16,7 @@ export class ListepretComponent implements OnInit{
 
   
   constructor(private personnelService : PersonnelService,
-    private router : Router){
+    private router : Router ,public authService : AuthService){
 
   }
 

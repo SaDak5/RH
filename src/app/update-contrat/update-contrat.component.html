@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <div class="container">
     <div>
         <h2>Modifier un contrat:</h2>
@@ -5,7 +6,7 @@
     <form>
         <div  class="col-sm-2 col-md-2 col-lg-2">
             <label>ID </label>
-            <input readonly type="text" [(ngModel)]="currentContrat.idContrat" name="idContrat" class="form-control">
+            <input hidden type="text" [(ngModel)]="currentContrat.idContrat" name="idContrat" class="form-control">
         </div>
         <div class="col-sm-4 col-md-4 col-lg-4">
             <label>type</label>
