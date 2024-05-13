@@ -1,4 +1,5 @@
 <app-navbar></app-navbar>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.19.0/font/bootstrap-icons.css" rel="stylesheet">
 <div class="container">
     <div class="my-4">
         <h2>Liste des contrats</h2>
@@ -15,7 +16,8 @@
                             <th scope="col">Date d'embauche</th>
                             <th scope="col">Date de signature</th>
                             <th scope="col">Nom de la société</th>
-
+                            <th scope="col">Salaire </th>
+                            <th scope="col">personnel corr</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -26,14 +28,29 @@
                             <td>{{ c.dateEmbauche }}</td>
                             <td>{{ c.dateSignature }}</td>
                             <td>{{ c.nomSociete }}</td>
-                   
-                            <td> <a *ngIf="authService.isAdmin()"  class="btn btn-danger" (click)="supprimerContrat(c)">Supprimer</a></td>
-                            <td> <a *ngIf="authService.isAdmin()"  class="btn btn-warning" [routerLink]="['/updateContrat', c.idContrat]">Modifier</a>
+                            <td>{{ c.salaire}} DT</td>
+
+                            <td>
+                                <a [routerLink]="['/profil', c.personnel?.id]">
+                                    {{ c.personnel?.nom}} {{ c.personnel?.prenom + ' - ' + c.personnel?.numCin}}
+                                </a>
+                                
                             </td>
+                            <td> <a *ngIf="authService.isAdmin()"  class="btn btn-warning" [routerLink]="['/updateContrat', c.idContrat]"> 
+                                <i class="bi bi-pencil-square"></i></a>
+                           
+                            <td> <a *ngIf="authService.isAdmin()"  class="btn btn-danger" (click)="supprimerContrat(c)">
+                                <i class="bi bi-trash"></i></a></td>
+                            
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+    </div>
+    <button class="btn btn-secondary" style="position: absolute; bottom: 20px; right: 20px;" (click)="printPage()">Imprimer</button> <div style="position: fixed; bottom: 20px; left: 20px;">
+        <a routerLink="/sidebar" class="btn btn-primary">
+            <span class="glyphicon glyphicon-chevron-left"></span> 
+        </a>
     </div>
 </div>

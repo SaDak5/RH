@@ -22,7 +22,8 @@ export class AuthService {
 public loggedUser!:string;
 public isloggedIn: Boolean = false;
 public roles!:string[];
-
+////// ta3ml biha verifMail bch twli enable=1
+public regitredUser : User = new User();
 constructor(private router: Router,private http:HttpClient) { }
 
 
@@ -67,6 +68,16 @@ saveToken(jwt:string){
     return false;
    return (this.roles.indexOf('ADMIN') >=0);
    }
+   ///
+   isUserOnly(): boolean {
+    if (!this.roles || !Array.isArray(this.roles)) {
+      return false; // Si les rôles ne sont pas définis ou ne sont pas un tableau, renvoie false
+    }
+    return this.roles.includes('USER') && !this.roles.includes('ADMIN');
+  }
+  
+  
+  
 
    logout() {
     this.loggedUser = undefined!;
@@ -106,4 +117,21 @@ this.loggedUser = decodedToken.sub;
        isTokenExpired(): Boolean
        {
        return this.helper.isTokenExpired(this.token); }
+
+       registerUser(user :User){
+        return this.http.post<User>(this.apiURL+'/register', user,
+        {observe:'response'});
+        }
+///////// 148 VerifMail
+        setRegistredUser(user : User){
+          this.regitredUser=user;
+          }
+          getRegistredUser(){
+          return this.regitredUser;
+          }
+        
+          validateEmail(code : string){
+            return this.http.get<User>(this.apiURL+'/verifyEmail/'+code);
+            }
+            
 }

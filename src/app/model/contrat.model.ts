@@ -6,7 +6,9 @@ export class Contrat {
     dateEmbauche!:Date;
     dateSignature!:Date;
     nomSociete!:string;
+    salaire!:number;
     personnel!:Personnel;
+ 
 
     }
     

@@ -16,6 +16,7 @@
               <th>Date Fin</th>
               <th>Justification Conge</th>
               <th>Date Demande</th>
+              <th>personnel correspondant</th>
             </tr>
           </thead>
           <tbody>
@@ -26,18 +27,23 @@
               <td>{{ conge.dateFin | date:'dd/MM/yyyy' }}</td>
               <td>{{ conge.justifConge }}</td>
               <td>{{ conge.dateDemande | date:'dd/MM/yyyy'}}</td>
+               <td>
+                                <a [routerLink]="['/profil', conge.personnel?.id]">
+                                    {{ conge.personnel?.nom }} {{ conge.personnel?.prenom + ' - ' + conge.personnel?.numCin}}
+                                </a>
+                            </td>
               <td>
-                <a *ngIf="authService.isAdmin()" class="btn btn-primary" (click)="modifierConge(conge.idConge)"></a>
+                <a *ngIf="authService.isAdmin()" class="btn btn-primary" (click)="modifierConge(conge.idConge)">
                   <i class="bi bi-pencil-square"></i>
               
-                
+                </a>
               </td>
   
               <td>
                 <a *ngIf="authService.isAdmin()"class="btn btn-danger"
-                (click)="supprimerConge(conge)"></a>
+                (click)="supprimerConge(conge)">
                 <i class="bi bi-trash"></i>
-                
+              </a>
               </td> 
 
             </tr>
@@ -45,5 +51,10 @@
         </table>
       </div>
     </div>
+    <div style="position: fixed; bottom: 20px; left: 20px;">
+      <a routerLink="/sidebar" class="btn btn-primary">
+          <span class="glyphicon glyphicon-chevron-left"></span> 
+      </a>
+  </div>
   </div>
   

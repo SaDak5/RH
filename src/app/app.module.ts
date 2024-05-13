@@ -31,12 +31,26 @@ import { AddPretComponent } from './add-pret/add-pret.component';
 import { AddDepartementComponent } from './add-departement/add-departement.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AddAbsenceComponent } from './add-absence/add-absence.component';
-
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { TokenInterceptor } from './services/token.interceptor';
 import { RegisterComponent } from './register/register.component';
+import { UpdateDepartementComponent } from './update-departement/update-departement.component';
+import { NotificationComponent } from './notification/notification.component';
+import { VerifEmailComponent } from './verif-email/verif-email.component';
+
+import { AddNotificationComponent } from './add-notification/add-notification.component';
+import { UpadateNotificationComponent } from './upadate-notification/upadate-notification.component';
+
+import { UpdateDemandePretComponent } from './update-demande-pret/update-demande-pret.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { MessagerieComponent } from './messagerie/messagerie.component';
+import { AddMessagerieComponent } from './add-messagerie/add-messagerie.component';
+
+
+
+
 
 
 @NgModule({
@@ -73,14 +87,30 @@ import { RegisterComponent } from './register/register.component';
     NavbarComponent,
     LoginComponent,
     ForbiddenComponent,
-    RegisterComponent
+    RegisterComponent,
+    UpdateDepartementComponent,
+    NotificationComponent,
+    VerifEmailComponent,
+  
+    AddNotificationComponent,
+    UpadateNotificationComponent,
+    
+
+    UpdateDemandePretComponent,
+    DashboardComponent,
+    MessagerieComponent,
+    AddMessagerieComponent,
+    
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+  
+    
 
   ],
   providers: [{ provide : HTTP_INTERCEPTORS,

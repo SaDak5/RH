@@ -1,29 +1,33 @@
 <app-navbar></app-navbar>
 <form>
 
-    <div [hidden] >
+    <div [hidden] ="true">
         <label for="idConge" class="form-label">id Conge</label> 
         <input [(ngModel)]="newConge.idConge" name="idConge"
             class="form-control w-25">
     </div>
+    <br />
 
     <div>
     <label for="typeConge" class="form-label" >type Conge</label> 
     <input type="text" [(ngModel)]="newConge.typeConge" name="typeConge"
         class="form-control" placeholder="Entrez un type...">
     </div>
+    <br />
 
      <div >
         <label for="dateDebut" class="form-label">date Debut</label> 
         <input type="date" [(ngModel)]="newConge.dateDebut" name="dateDebut"
             class="form-control " placeholder="Entrez un date...">
     </div>
+    <br />
 
     <div>
     <label for="dateFin" class="form-label" >date Fin</label> 
     <input type="date" [(ngModel)]="newConge.dateFin" name="dateFin"
         class="form-control" placeholder="Entrez un type...">
     </div>
+    <br />
 
 
     <div>
@@ -31,6 +35,7 @@
     <input type="text" [(ngModel)]="newConge.justifConge" name="justifConge"
         class="form-control" placeholder="Entrez un type...">
     </div>
+    <br />
 
 
     <div>
@@ -38,9 +43,16 @@
     <input type="date" [(ngModel)]="newConge.dateDemande" name="DateDemande"
         class="form-control" placeholder="Entrez un type...">
     </div>
+    <br />
 
-
-
+    <div class="col-sm-4 col-md-4 col-lg-4">
+        <label>Personnel correspondant</label>
+        <select class="form-control form-control-lg" id="idConge" name="idConge" [(ngModel)]="selectedPersonnel">
+            <option *ngFor="let personnel of personnels" [ngValue]="personnel">
+                {{ personnel.nom }} {{ personnel.prenom + ' - ' + personnel.numCin}}
+            </option>
+        </select>
+    </div>
 
 
     <div class="mt-4">

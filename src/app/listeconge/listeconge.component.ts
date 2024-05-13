@@ -26,10 +26,6 @@ export class ListecongeComponent implements OnInit {
     });
   
     }
-
-
-
-
     supprimerConge(c: Conge) {
       let conf = confirm("Etes-vous sûr ?");
       if (conf) this.personnelService.supprimerConge(c.idConge).subscribe(() => {

@@ -1,16 +1,12 @@
 <app-navbar></app-navbar>
+<div class="container">
 <form>
     <div [hidden]="true" >
-        <label for="idPret" class="form-label">id Conge</label> 
+        <label for="idPret" class="form-label">id Pret</label> 
         <input [(ngModel)]="newPret.idPret" name="idPret"
             class="form-control w-25">
     </div>
 
-    <div>
-    <label for="statutPret" class="form-label" >type Conge</label> 
-    <input type="text" [(ngModel)]="newPret.statutPret" name="statutPret"
-        class="form-control" placeholder="Entrez un type...">
-    </div>
 
      <div >
         <label for="montant" class="form-label">Montant</label> 
@@ -18,7 +14,25 @@
             class="form-control " placeholder="Entrez un montant...">
     </div>
 
+    <div class="col-sm-2 col-md-2 col-lg-2">
+        <label>date demande </label>
+        <input type="date" [(ngModel)]="newPret.dateDemande" name="dateDemande" class="form-control">
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+        <label>date Remise </label>
+        <input type="date" [(ngModel)]="newPret.dateRemise" name="dateRemise" class="form-control">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+        <label>Personnel correspondant</label>
+        <select class="form-control form-control-lg" id="idPret" name="idPret" [(ngModel)]="selectedPersonnel">
+            <option *ngFor="let personnel of personnels" [ngValue]="personnel">
+                {{ personnel.nom }} {{ personnel.prenom + ' - ' + personnel.numCin}}
+            </option>
+        </select>
+    </div>
     <div class="mt-4">
         <button type="submit" (click)="addPret()" class="btn btn-success mb-2">Ajouter</button>
       </div>
+
+    
 </form> 

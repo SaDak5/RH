@@ -4,6 +4,7 @@ import {Component } from '@angular/core';
 import { Absence } from '../model/absence.model';
 import { Assiduite } from '../model/assiduite.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Personnel } from '../model/personnel.model';
 
 @Component({
   selector: 'app-update-absence',
@@ -15,14 +16,14 @@ export class UpdateAbsenceComponent  {
   currentAbsence = new Absence();
  assiduites! : Assiduite[];
   updatedAsId! : number;
-  
+  personnels! : Personnel[];
   constructor(private activatedRoute: ActivatedRoute,
     private router :Router,
     private personnelService: PersonnelService) { }
 
     ngOnInit(): void {
-      this.personnelService.listeAssiduite().
-      subscribe(abs => {this.assiduites = abs;
+      this.personnelService.listePersonnels().
+      subscribe(abs => {this.personnels = abs;
       console.log(abs);
       });
       this.personnelService.consulterAbsence(this.activatedRoute.snapshot.params['id']).

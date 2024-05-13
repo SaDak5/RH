@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="container">
     <div>
-        <h2>Ajouter un Assiduite :</h2>
+        <h2>Ajouter une absence:</h2>
     </div>
     <form>
         <div hidden class="col-sm-2 col-md-2 col-lg-2">
@@ -24,13 +24,14 @@
     
 
     <div class="col-sm-4 col-md-4 col-lg-4">
-       <label>idAssiduites</label>
-       <select class="form-control form-control-lg" id="idAbs" name="idAbs" [(ngModel)]="newIdAssiduite">
+       <label>personnel correspondant</label>
+       <select class="form-control form-control-lg" id="idAssiduite" name="idAssiduite" [(ngModel)]="newIdAssiduite">
            <option *ngFor="let ab of assiduites" [value]="ab.idAssiduite">
-               {{ab.idAssiduite}}
+               {{ ab.personnel?.nom + '  ' + ab.personnel?.prenom + ' - ' + ab.personnel?.numCin }}
            </option>
        </select>
    </div>
+  
          
         <div class="mt-2">
             

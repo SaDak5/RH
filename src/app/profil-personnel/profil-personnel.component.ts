@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PersonnelService } from '../services/Personnel.Service';
+import { Personnel } from '../model/personnel.model';
 
 
 
@@ -13,8 +14,8 @@ import { PersonnelService } from '../services/Personnel.Service';
 export class ProfilPersonnelComponent implements OnInit {
 
   
-personnel:any;
-personnels: any;
+personnel!:any;
+personnels!:Personnel[];
 
 constructor( private route: ActivatedRoute,
   private personnelService: PersonnelService){

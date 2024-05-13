@@ -24,7 +24,7 @@ constructor(private activatedRoute: ActivatedRoute,
 updatePersonnel() {
 this.currentPersonnel.departement = this.departements?.find(dep => dep.idDep == this.updatedDepId)!; 
  this.personnelService.updatePersonnel(this.currentPersonnel).subscribe(person => {
- this.router.navigate(['/profil', this.currentPersonnel.idPersonnel]);
+ this.router.navigate(['/profil', this.currentPersonnel.id]);
    });
 }
 
@@ -33,10 +33,10 @@ this.currentPersonnel.departement = this.departements?.find(dep => dep.idDep == 
 ngOnInit(): void { 
   this.personnelService.listeDepartements().
   subscribe(deps => {console.log(deps);
-        this.departements = deps._embedded.departements;
+        this.departements = deps;
     });
 
-   this.personnelService.consulterPersonnel(this.activatedRoute.snapshot.params['idPersonnel']).
+   this.personnelService.consulterPersonnel(this.activatedRoute.snapshot.params['id']).
     subscribe( person =>{ this.currentPersonnel = person;
        this.updatedDepId = this.currentPersonnel.departement.idDep;
        } ) ;

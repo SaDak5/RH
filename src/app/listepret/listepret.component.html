@@ -3,7 +3,7 @@
 <div class="container">
   <h2>Liste Pret</h2>
   <a *ngIf="authService.isAdmin()"class="btn btn-success" routerLink="/addPret">
-    <i class="bi bi-plus-circle"></i> Ajouter Absence
+    <i class="bi bi-plus-circle"></i> Ajouter Pret
   </a> 
     <div class="card shadow mb-4">
       <div class="card-body">
@@ -11,28 +11,38 @@
           <thead>
             <tr>
               <th>Id</th>
-              <th>Statut Pret</th>
               <th>Montant</th>
+              <th>Date Demande</th>
+              <th>Date Remise</th>
+              <th>personnel correspondant</th>
+              
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let pret of prets">
               <td>{{ pret.idPret }}</td>
-              <td>{{ pret.statutPret }}</td>
               <td>{{ pret.montant }}</td>
-              
+            <td>{{ pret.dateDemande | date:'dd/MM/yyyy' }}</td>
+            <td>{{ pret.dateRemise | date:'dd/MM/yyyy'}}</td>
+            <td>
+              <a [routerLink]="['/profil', pret.personnel?.id]">
+                  {{ pret.personnel?.nom }} {{ pret.personnel?.prenom + ' - ' + pret.personnel?.numCin}}
+              </a>
+          </td>
+          
+           
               <td>
-                <button class="btn btn-primary" (click)="modifierPret(pret.idPret)">
+                <a *ngIf="authService.isAdmin()" class="btn btn-primary" (click)="modifierPret(pret.idPret)">
                   <i class="bi bi-pencil-square"></i>
               
-                </button>
+                </a>
               </td>
   
               <td>
-                <button class="btn btn-danger"
-                (click)="supprimerConge(pret)">
+                <a *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="supprimerPret(pret)">
                 <i class="bi bi-trash"></i>
-                </button>
+              </a>
               </td> 
 
             </tr>
@@ -40,5 +50,10 @@
         </table>
       </div>
     </div>
+    <div style="position: fixed; bottom: 20px; left: 20px;">
+      <a routerLink="/sidebar" class="btn btn-primary">
+          <span class="glyphicon glyphicon-chevron-left"></span> 
+      </a>
+  </div>
   </div>
   

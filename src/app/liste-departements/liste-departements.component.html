@@ -5,7 +5,10 @@
     <form class="form-inline">
         <div class="form-group mx-sm-3 mb-2 mt-2 ">
             <label><b>Nom Departement en tapant</b></label>
-          
+            <div class="search-container">
+                <i class="bi bi-search search-icon"></i>
+             <input class="form-control" #searchTerm (keyup)="onKeyUp(searchTerm.value)">
+            </div>
         </div>
             </form>
     
@@ -20,12 +23,27 @@
                    <tr>
                        <th>Id</th>
                        <th>Nom departement</th>
+                       <th> </th>
+                       <th></th>
                    </tr>
                </thead>
                <tbody *ngFor="let dep of departements">
                    <tr>
                        <td>{{dep.idDep}}</td>
                        <td>{{dep.nomDep}}</td>
+                       <td>
+                        <td>
+                            <a *ngIf="authService.isAdmin()" class="btn btn-primary" (click)="modifierDepartement(dep.idDep)">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        </td>
+                      <td>
+                        
+                            <a *ngIf="authService.isAdmin()" class="btn btn-danger"
+                        (click)="supprimerDepartement(dep)">
+                        <i class="bi bi-trash"></i>
+                      </a>
+                      </td> 
                    </tr>
                </tbody>
            </table>

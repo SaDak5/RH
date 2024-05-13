@@ -7,10 +7,12 @@ import { Document } from '../model/docAdministratifs.model';
 import { Contrat } from '../model/contrat.model';
 import { Departement } from '../model/departement.model';
 import { Personnel } from '../model/personnel.model';
-import { DepartementWrapper } from '../model/departementWrapped.model';
 import { Conge } from '../model/conge.model';
 import { Pret } from '../model/pret.model';
+import { Notification} from '../model/notification.model';
 import { AuthService } from './auth.Service';
+import {  Messagerie } from '../model/messagerie';
+
 
 const httpOptions = {
     headers: new HttpHeaders( {'Content-Type': 'application/json'} )
@@ -19,6 +21,7 @@ const httpOptions = {
     providedIn: 'root'
   })
   export class PersonnelService{
+   
     apiURLAs: string = 'http://localhost:8088/ressourcesH/api';
     apiURLAb: string = 'http://localhost:8088/ressourcesH/api/abs';
     apiURLDoc: string = 'http://localhost:8088/ressourcesH/api/documents';
@@ -28,10 +31,16 @@ const httpOptions = {
     apiURL="http://localhost:8088/ressourcesH/api/departements";
     apiURLCong="http://localhost:8088/ressourcesH/api/conge";
     apiURLP="http://localhost:8088/ressourcesH/api/pret"
+    apiNOT="http://localhost:8088/ressourcesH/api/notification"
+    apiMess="http://localhost:8088/ressourcesH/api/messagerie"
     assiduites!: Assiduite[]; //un tableau de Assiduite
     absences!:Absence[]; //un tableau d'absence'
     documents!:Document[] //un tableau de document
     personnels! : Personnel[];  //un tableau de Personnel
+
+    notifications! : Notification[];  //un tableau de not
+    contrats! : Contrat[];  //un tableau de contrat
+     prets! : Pret[];  //un tableau de pret
     constructor(private http: HttpClient,private authService: AuthService) {}
   
     listeAssiduite(): Observable<Assiduite[]>{
@@ -179,6 +188,7 @@ const httpOptions = {
   
         ////////////////// 23/03/2024 /////////////////////////
         listePersonnels(): Observable<Personnel[]>{
+         
           let jwt = this.authService.getToken();
           jwt = "Bearer "+jwt;
           let httpHeaders = new HttpHeaders({"Authorization":jwt})
@@ -192,8 +202,8 @@ const httpOptions = {
             let httpHeaders = new HttpHeaders({"Authorization":jwt})
             return this.http.post<Personnel>(this.baseUrl+"/addP", as, {headers:httpHeaders});
             }
-            supprimerPersonnel(idPersonnel : number) {
-            const url = `${this.baseUrl}/delete/${idPersonnel}`;
+            supprimerPersonnel(id : number) {
+            const url = `${this.baseUrl}/delete/${id}`;
             let jwt = this.authService.getToken();
             jwt = "Bearer "+jwt;
             let httpHeaders = new HttpHeaders({"Authorization":jwt})
@@ -213,25 +223,25 @@ const httpOptions = {
             return this.http.put<Personnel>(this.baseUrl+"/updatePers", as, {headers:httpHeaders});
             }
       getPersonnelById(idPersonnel:number):Observable<Personnel> {
-        const  url = `${this.baseUrl}/${idPersonnel}`;
+        const  url = `${this.baseUrl}/getbyID/${idPersonnel}`;
         return this.http.get<Personnel>(url,httpOptions);
         }
       
         trierPersonnels(){
           this.personnels = this.personnels.sort((n1,n2) => {
-            if (n1.idPersonnel! > n2.idPersonnel!) 
+            if (n1.id! > n2.id!) 
             { return 1; } 
-            if (n1.idPersonnel! < n2.idPersonnel!) 
+            if (n1.id! < n2.id!) 
             {return -1;}
             return 0;
           });
            }
       
-        listeDepartements():Observable<DepartementWrapper>{
+        listeDepartements():Observable<Departement[]>{
           let jwt = this.authService.getToken();
           jwt = "Bearer "+jwt;
           let httpHeaders = new HttpHeaders({"Authorization":jwt})
-          return this.http.get<DepartementWrapper>(this.apiURL+"/all",{headers:httpHeaders});
+          return this.http.get<Departement[]>(this.apiURL+"/all",{headers:httpHeaders});
           }
       
         rechercherParDepartement(idDep: number):Observable< Personnel[]> {
@@ -249,7 +259,7 @@ const httpOptions = {
       let jwt = this.authService.getToken();
       jwt = "Bearer "+jwt;
       let httpHeaders = new HttpHeaders({"Authorization":jwt})
-      return this.http.post<Departement>(this.apiURL, as, {headers:httpHeaders});
+      return this.http.post<Departement>(this.apiURL+"/addDep", as, {headers:httpHeaders});
       }
       
       consulterDepartement(id: number): Observable<Departement> {
@@ -259,6 +269,21 @@ const httpOptions = {
         let httpHeaders = new HttpHeaders({"Authorization":jwt})
         return this.http.get<Departement>(url,{headers:httpHeaders});
         }
+
+        updateDepartement( dep: Departement):Observable<Departement>{
+          let jwt = this.authService.getToken();
+          jwt = "Bearer "+jwt;
+          let httpHeaders = new HttpHeaders({"Authorization":jwt})
+          return this.http.put<Departement>(this.apiURL+"/updateDep", dep, {headers:httpHeaders}); 
+          }
+      
+        supprimerDepartement(idDep : number) {
+            const url = `${this.apiURL}/delDep/${idDep}`;
+            let jwt = this.authService.getToken();
+            jwt = "Bearer "+jwt;
+            let httpHeaders = new HttpHeaders({"Authorization":jwt})
+            return this.http.delete(url, {headers:httpHeaders});
+            }
             //congee
             listeConges(): Observable<Conge[]>{
               let jwt = this.authService.getToken();
@@ -321,7 +346,7 @@ const httpOptions = {
             return this.http.delete(url, {headers:httpHeaders});
             }
             consulterPret(id: number): Observable<Pret> {
-            const url = `${this.apiURLP}/${id}`;
+            const url = `${this.apiURLP}/getbyid/${id}`;
             let jwt = this.authService.getToken();
             jwt = "Bearer "+jwt;
             let httpHeaders = new HttpHeaders({"Authorization":jwt})
@@ -333,9 +358,75 @@ const httpOptions = {
             let httpHeaders = new HttpHeaders({"Authorization":jwt})
             return this.http.put<Pret>(this.apiURLP+"/update", as, {headers:httpHeaders});
             }
-      //////////       27/03/2024    //////////////
-      supprimerNotification(notificationId: number): Observable<any> {
-        // Appel HTTP pour supprimer la notification du backend
-        return this.http.delete<any>(`URL_du_backend_pour_supprimer_notification/${notificationId}`);
-      }
-    }
+            //notification //////////////////////////////////
+            listeNotifications(): Observable<Notification[]>{
+          let jwt = this.authService.getToken();
+          jwt = "Bearer "+jwt;
+          let httpHeaders = new HttpHeaders({"Authorization":jwt})
+          return this.http.get<Notification[]>(this.apiNOT+"/all",{headers:httpHeaders});
+          }
+          
+        
+          ajouterNotification( as: Notification):Observable<Notification>{
+            let jwt = this.authService.getToken();
+            jwt = "Bearer "+jwt;
+            let httpHeaders = new HttpHeaders({"Authorization":jwt})
+            return this.http.post<Notification>(this.apiNOT+"/add", as, {headers:httpHeaders});
+            }
+            supprimerNotification(id : number) {
+            const url = `${this.apiNOT}/delete/${id}`;
+            let jwt = this.authService.getToken();
+            jwt = "Bearer "+jwt;
+            let httpHeaders = new HttpHeaders({"Authorization":jwt})
+            return this.http.delete(url, {headers:httpHeaders});
+            }
+            consulterNotification(id: number): Observable<Notification> {
+            const url = `${this.apiNOT}/getbyid/${id}`;
+            let jwt = this.authService.getToken();
+            jwt = "Bearer "+jwt;
+            let httpHeaders = new HttpHeaders({"Authorization":jwt})
+            return this.http.get<Notification>(url,{headers:httpHeaders});
+            }
+            updateNotification(as :Notification) : Observable<Notification> {
+            let jwt = this.authService.getToken();
+            jwt = "Bearer "+jwt;
+            let httpHeaders = new HttpHeaders({"Authorization":jwt})
+            return this.http.put<Notification>(this.apiNOT+"/update", as, {headers:httpHeaders});
+          }
+           // Messagerie 08/05/2024 //////////////////////////////////
+           listeMessageries(): Observable<Messagerie[]>{
+            let jwt = this.authService.getToken();
+            jwt = "Bearer "+jwt;
+            let httpHeaders = new HttpHeaders({"Authorization":jwt})
+            return this.http.get<Messagerie[]>(this.apiMess+"/all",{headers:httpHeaders});
+            }
+            
+          
+            ajouterMessagerie( as: Messagerie):Observable<Messagerie>{
+              let jwt = this.authService.getToken();
+              jwt = "Bearer "+jwt;
+              let httpHeaders = new HttpHeaders({"Authorization":jwt})
+              return this.http.post<Messagerie>(this.apiMess+"/add", as, {headers:httpHeaders});
+              }
+              supprimerMessagerie(id : number) {
+              const url = `${this.apiMess}/delete/${id}`;
+              let jwt = this.authService.getToken();
+              jwt = "Bearer "+jwt;
+              let httpHeaders = new HttpHeaders({"Authorization":jwt})
+              return this.http.delete(url, {headers:httpHeaders});
+              }
+              consulterMessagerie(id: number): Observable<Messagerie> {
+              const url = `${this.apiMess}/getbyid/${id}`;
+              let jwt = this.authService.getToken();
+              jwt = "Bearer "+jwt;
+              let httpHeaders = new HttpHeaders({"Authorization":jwt})
+              return this.http.get<Messagerie>(url,{headers:httpHeaders});
+              }
+              updateMessagerie(as :Messagerie) : Observable<Messagerie> {
+              let jwt = this.authService.getToken();
+              jwt = "Bearer "+jwt;
+              let httpHeaders = new HttpHeaders({"Authorization":jwt})
+              return this.http.put<Messagerie>(this.apiMess+"/update", as, {headers:httpHeaders});
+            }
+        
+  }

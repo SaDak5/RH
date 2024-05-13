@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Contrat } from '../model/contrat.model';
 import { PersonnelService } from '../services/Personnel.Service';
 import { AuthService } from '../services/auth.Service';
+import { Personnel } from '../model/personnel.model';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-contrat',
@@ -12,13 +14,13 @@ import { AuthService } from '../services/auth.Service';
 export class ContratComponent implements OnInit {
 
  contrats? : Contrat[] ;
-
+ personnels! : Personnel[];
   constructor( private personnelService: PersonnelService ,private router: Router,public authService: AuthService) {
   
       }
 
       ngOnInit(): void {
- 
+        
         this.chargerContrats();
        }
       
@@ -27,10 +29,11 @@ export class ContratComponent implements OnInit {
            console.log(conts);
            this.contrats = conts;
            });
+           
        }
     
     
-       supprimerContrat(c: Contrat)
+  supprimerContrat(c: Contrat)
     {
     let conf = confirm("Etes-vous sûr ?");
     if (conf)
@@ -40,7 +43,8 @@ export class ContratComponent implements OnInit {
           
     });
     }
-
-
     
+    printPage() {
+      window.print();
+    }
 }

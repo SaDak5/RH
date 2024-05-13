@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.19.0/font/bootstrap-icons.css" rel="stylesheet">
 <div class="container">
     <div class="mb-3">
         <h2>Liste des documents</h2>
@@ -10,19 +10,28 @@
         <div class="card-body">
             <table class="table table-striped">
                 <thead>
-                    <tr> <th>Id</th><th>type</th> <th>dateCreation</th>  <th>Actions</th> </tr>
+                    <tr> <th>Id</th><th>type</th> <th>dateCreation</th><th>personnel correspondant</th>  <th>Actions</th> </tr>
                 </thead>
                 <tbody *ngFor="let document of documents">
                     <tr>
                         <td>{{document.idDocument}}</td>
                         <td>{{document.type}}</td>
-                        <td>{{document.dateCreation}}</td>
-                        
-                        <td><a *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="supprimerDocument(document)">Supprimer</a></td>
-                        <td><a  *ngIf="authService.isAdmin()" class="btn btn-warning" [routerLink]="['/updateDocument',document.idDocument]">Modifier</a></td>
-                    </tr>
+                        <td>{{document.dateCreation| date:'dd/MM/yyyy'}}</td>
+                        <td>
+                            <a  [routerLink]="['/profil', document.personnel?.id]">
+                                {{ document.personnel?.nom }} {{ document.personnel?.prenom + ' - ' + document.personnel?.numCin}}
+                            </a>
+                        </td>
+                        <td><a  *ngIf="authService.isAdmin()" class="btn btn-warning" [routerLink]="['/updateDocument',document.idDocument]"> <i class="bi bi-pencil-square"></i></a></td>
+                        <td><a *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="supprimerDocument(document)"><i class="bi bi-trash"></i></a></td>
+                           </tr>
                 </tbody>
             </table>
         </div>
+    </div>
+    <div style="position: fixed; bottom: 20px; left: 20px;">
+        <a routerLink="/sidebar" class="btn btn-primary">
+            <span class="glyphicon glyphicon-chevron-left"></span> 
+        </a>
     </div>
 </div>

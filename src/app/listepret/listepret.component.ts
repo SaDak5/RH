@@ -30,7 +30,7 @@ export class ListepretComponent implements OnInit{
 
 
 
-  supprimerConge(p: Pret) {
+  supprimerPret(p: Pret) {
     let conf = confirm("Etes-vous sûr ?");
     if (conf) this.personnelService.supprimerPret(p.idPret).subscribe(() => {
       console.log("reclamation supprimé"); this.chargerPrets();

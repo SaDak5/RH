@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Assiduite } from '../model/assiduite.model';
 import { Absence } from '../model/absence.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonnelService } from '../services/Personnel.Service';
+import { Personnel } from '../model/personnel.model';
 
 
 @Component({
@@ -10,30 +11,32 @@ import { PersonnelService } from '../services/Personnel.Service';
   templateUrl: './update-assiduite.component.html',
   
 })
-export class UpdateAssiduiteComponent {
+export class UpdateAssiduiteComponent implements OnInit{
   currentAssiduite = new Assiduite();
   absences! : Absence[];
-  updatedAbId! : number;
+  personnels! : Personnel[];
+  updatedAsId! : String;
   
   constructor(private activatedRoute: ActivatedRoute,
     private router :Router,
     private personnelService: PersonnelService) { }
 
     ngOnInit(): void {
-      this.personnelService.listeAbsences().
-      subscribe(abs => {this.absences = abs;
+      this.personnelService.listePersonnels().
+      subscribe(abs => {this.personnels = abs;
       console.log(abs);
       });
       this.personnelService.consulterAssiduite(this.activatedRoute.snapshot.params['id']).
       subscribe( as =>{ this.currentAssiduite = as;
-      this.updatedAbId =this.currentAssiduite.absence.idAbs;
+        this.updatedAsId =this.currentAssiduite.personnel.id.toString();
+      
       } ) ;
       }
    //   
   updateAssiduite(){
-      this.currentAssiduite.absence=this.absences?.find(ab=>ab.idAbs==this.updatedAbId)!;
+    this.currentAssiduite.personnel = this.personnels?.find(ab => ab.id.toString() === this.updatedAsId)!;
       this.personnelService.updateAssiduite(this.currentAssiduite).subscribe(as => {
-      this.router.navigate(['assiduites']);
+      this.router.navigate(['/assiduites']);
       }); 
     }
   

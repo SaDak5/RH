@@ -2,22 +2,36 @@
 <div class="container">
     <div>
         <h2>Ajouter un Assiduite :</h2>
-    </div>
+    </div><br />
     <form>
         <div hidden class="col-sm-2 col-md-2 col-lg-2">
             <label>ID </label>
             <input type="text" [(ngModel)]="newAssiduite.idAssiduite" name="idAssiduite" class="form-control">
         </div>
+        <br />
+
         <div class="col-sm-4 col-md-4 col-lg-4">
             <label>nbHeures travaillés</label>
-            <input type="text" [(ngModel)]="newAssiduite.nbHeures" name="nbHeures" class="form-control">
+            <input type="numberng" [(ngModel)]="newAssiduite.nbHeures" name="nbHeures" class="form-control">
         </div>
+        <br />
+
         <div class="col-sm-2 col-md-2 col-lg-2">
             <label>nbHeures supplementaires</label>
             <input type="number" [(ngModel)]="newAssiduite.heuresSupp" name="heuresSupp" class="form-control">
         </div>
-    
+        <br />
 
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Personnel correspondant</label>
+            <select class="form-control form-control-lg" id="idAssiduite" name="idAssiduite" [(ngModel)]="selectedPersonnel">
+                <option *ngFor="let personnel of personnels" [ngValue]="personnel">
+                    {{ personnel.nom }} {{ personnel.prenom + ' - ' + personnel.numCin}}
+                </option>
+            </select>
+        </div>
+    
+<!-- 
     <div class="col-sm-4 col-md-4 col-lg-4">
        <label>heures absences</label>
        <select class="form-control form-control-lg" id="idAbs" name="idAbs" [(ngModel)]="newIdAbs">
@@ -25,7 +39,7 @@
                {{ab.heuresAbs}}
            </option>
        </select>
-   </div>
+   </div> -->
          
         <div class="mt-2">
             

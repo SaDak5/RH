@@ -21,7 +21,7 @@ constructor(private personnelService: PersonnelService){}
 
  onKeyUp(filterText : string){ ////onkeyup
    this.personnels = this.allPersonnels.filter(item => 
-    item.nomPersonnel.toLowerCase().includes(filterText));
+    item.nom.toLowerCase().includes(filterText));
   }
 
 onChange() { 
@@ -31,7 +31,7 @@ onChange() {
   ngOnInit(): void {
 
     this.personnelService.listeDepartements(). 
-    subscribe(cats => {this.departements = cats._embedded.departements;
+    subscribe(cats => {this.departements = cats;
        console.log(cats); });
     
   //   this.personnelService.listeDepartements().

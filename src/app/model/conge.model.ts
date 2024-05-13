@@ -6,6 +6,7 @@ import { Personnel } from "./personnel.model";
 	dateFin! : Date;
 	justifConge! : String;
 	dateDemande! : Date ;
-    //personnel?: Personnel;
+    etat!:String;
+    personnel!: Personnel;
 
     }

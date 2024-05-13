@@ -1,4 +1,5 @@
 <app-navbar></app-navbar>
+
 <div class="container">
     <div>
         <h2>Ajouter un Document :</h2>
@@ -8,19 +9,36 @@
             <label>ID </label>
             <input type="text" [(ngModel)]="newDocument.idDocument" name="idDocument" class="form-control">
         </div>
-        <div class="col-sm-4 col-md-4 col-lg-4">
-            <label>type</label>
-            <input type="text" [(ngModel)]="newDocument.type" name="type" class="form-control">
-        </div>
+     
         <div class="col-sm-2 col-md-2 col-lg-2">
-            <label>date</label>
+            <label>Date</label>
             <input type="date" [(ngModel)]="newDocument.dateCreation" name="dateCreation" class="form-control">
         </div>
    
-         
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Personnel correspondant</label>
+            <select class="form-control" [(ngModel)]="selectedPersonnel" name="id">
+                <option *ngFor="let personnel of personnels" [ngValue]="personnel">
+                    {{ personnel.nom }} {{ personnel.prenom + ' - ' + personnel.numCin }}
+                </option>
+            </select>
+        </div>
+           <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Type de document</label>
+            <select class="form-control" [(ngModel)]="newDocument.type" name="type">
+                <option value="">Sélectionner un type</option>
+                <option value="Certificat">Certificat</option>
+                <option value="Lettre de motivation">Lettre de motivation</option>
+                <option value="Fiche de paie">Fiche de paie</option>
+                <option value="Autres">Autres</option>
+            </select>
+               </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label>autres</label>
+            <input type="text" [(ngModel)]="newDocument.type" name="type" class="form-control">
+        </div>
         <div class="mt-2">
-            
-            <button type="submit"  (click)="addDocument()"class="btn btn-success">ajouter</button>
+            <button type="submit" (click)="addDocument()" class="btn btn-success">Ajouter</button>
         </div>
     </form>
 </div>

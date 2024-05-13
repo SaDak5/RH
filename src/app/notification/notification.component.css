@@ -1,0 +1,31 @@
+.blinking-red {
+  color: rgb(223, 35, 29);
+  animation: blinker-red 1.5s linear infinite;
+}
+
+@keyframes blinker-red {
+  0% { opacity: 1.0; }
+  50% { opacity: 0.0; }
+  100% { opacity: 1.0; }
+}
+
+ 
+ /* Ajoutez vos styles CSS personnalisés pour la page de notification ici */
+
+/* Style pour les boutons d'acceptation et de refus */
+.btn-accept {
+  background-color: green; /* Couleur de fond pour le bouton d'acceptation */
+  color: white; /* Couleur du texte pour le bouton d'acceptation */
+}
+
+.btn-reject {
+  background-color: rgb(63, 69, 152); /* Couleur de fond pour le bouton de refus */
+  color: rgb(255, 255, 255); /* Couleur du texte pour le bouton de refus */
+}
+
+/* Style pour les icônes d'acceptation et de refus */
+.icon-check,
+.icon-cancel {
+  font-size: 20px; /* Taille de police des icônes */
+  margin-right: 5px; /* Marge à droite pour espacement */
+}

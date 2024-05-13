@@ -31,6 +31,16 @@ import { LoginComponent } from './login/login.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RegisterComponent } from './register/register.component';
+import { UpdateDepartementComponent } from './update-departement/update-departement.component';
+import { VerifEmailComponent } from './verif-email/verif-email.component';
+
+import { NotificationComponent } from './notification/notification.component';
+import { AddNotificationComponent } from './add-notification/add-notification.component';
+import { UpadateNotificationComponent } from './upadate-notification/upadate-notification.component';
+
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AddMessagerieComponent } from './add-messagerie/add-messagerie.component';
+import { MessagerieComponent } from './messagerie/messagerie.component';
 const routes: Routes = [
   {path: "assiduites", component : AssiduitesComponent},
   {path: "addAssiduite", component : AddAssiduiteComponent},
@@ -62,11 +72,21 @@ const routes: Routes = [
   {path: "updatePret/:idPret", component: UpdatePretComponent},
   {path: "addAbsence", component: AddAbsenceComponent},
   {path: "updateAbsence/:id", component :UpdateAbsenceComponent},
+  {path: "updateDepartement/:id", component :UpdateDepartementComponent},
   {path: "sidebar", component: SidebarComponent},
   {path: "navbar", component: NavbarComponent},
   {path: 'login', component: LoginComponent},
   {path: 'app-forbidden', component: ForbiddenComponent},
   {path:'register',component:RegisterComponent},
+  { path: 'verifEmail', component: VerifEmailComponent },
+  { path: 'notification', component: NotificationComponent },
+  {path: "addNotification", component : AddNotificationComponent},
+  { path: 'updateNotification/:id', component: UpadateNotificationComponent },
+  {path: 'messagerie', component: MessagerieComponent},
+  {path: "addMessagerie", component : AddMessagerieComponent},
+  
+  //{ path: 'addDemandePret', component: AddDemandePretComponent },
+  {path:'dashboard', component: DashboardComponent },
   {path: "", redirectTo: "sidebar", pathMatch: "full" }
 ];
 

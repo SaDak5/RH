@@ -1,11 +1,16 @@
 <app-navbar></app-navbar>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.19.0/font/bootstrap-icons.css" rel="stylesheet">
+
 <div class="container">
     <h2>Liste des absences</h2>
     <a *ngIf="authService.isAdmin()" class="btn btn-success" routerLink="/addAbsence">
-        <i class="bi bi-plus-circle"></i> Ajouter Absence
-      </a> 
-    <div class="card shadowmb-4">
+        <i class="bi bi-plus-circle"></i> Ajouter absence
+    </a> 
+    <!-- Message de succès -->
+    <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+    </div>
+    <div class="card shadow mb-4">
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -15,7 +20,8 @@
                             <th scope="col">heuresAbs</th>
                             <th scope="col">type</th>
                             <th scope="col">statut</th>
-                            <th scope="col">idAssiduite</th>
+                            <th scope="col">Personnel correspondant</th>
+                            
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -25,16 +31,30 @@
                             <td>{{ a.heuresAbs }}</td>
                             <td>{{ a.typeAbs }}</td>
                             <td>{{ a.statut }}</td>
-                            <td>{{ a.assiduite?.idAssiduite }}</td>
+                            <td>{{ a.assiduite?.personnel?.nom+ '  ' + a.assiduite?.personnel?.prenom+ ' - ' + a.assiduite?.personnel?.numCin}}</td>
+                           
                             <td>
-                                <a *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="supprimerAbsence(a)">Supprimer</a></td>
-                            <td><a *ngIf="authService.isAdmin()" class="btn btn-warning" [routerLink]="['/updateAbsence',a.idAbs]">Modifier</a>
-                          </td>
+                                <a *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="supprimerAbsence(a)">
+                                    Supprimer <i class="bi bi-pencil-square"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a *ngIf="authService.isAdmin()" class="btn btn-warning" [routerLink]="['/updateAbsence',a.idAbs]">
+                                    Modifier <i class="bi bi-trash"></i>
+                                </a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-  </div>
-  
+    
+    <div style="position: fixed; bottom: 20px; left: 20px;">
+        <a routerLink="/assiduites" class="btn btn-primary">
+            <span class="glyphicon glyphicon-chevron-left"></span> 
+        </a>
+    </div>
+
+    
+</div>

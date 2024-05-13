@@ -17,15 +17,11 @@ export class NavbarComponent implements OnInit{
 
   ngOnInit(): void {
 
-    let isloggedin: string;
-    let loggedUser:string;
+    this.authService.loadToken();
+    if(this.authService.getToken()==null|| this .authService.isTokenExpired()) this.router.navigate(['/login']);
     
-     isloggedin = localStorage.getItem('isloggedIn') || '';
-     loggedUser = localStorage.getItem('loggedUser') || '';
-     if (isloggedin!="true" || !loggedUser)
-       this.router.navigate(['/login']);
-      else
-       this.authService.setLoggedUserFromLocalStorage(loggedUser);
+     
+       
      }
     
   
