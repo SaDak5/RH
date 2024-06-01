@@ -7,10 +7,8 @@ export class Absence{
     typeAbs!: string;
     heuresAbs!: number;
     statut!: String ;
-    notification!: String ;
     assiduite!:Assiduite;   
     personnel!:Personnel; 
-    nom!: string; // Nom du personnel associé
-    prenom!: string  ;
+  
     }
     

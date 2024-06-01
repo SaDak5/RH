@@ -4,9 +4,8 @@ import { Personnel } from "./personnel.model";
 	typeConge! : String ;
     dateDebut! : Date; 
 	dateFin! : Date;
-	justifConge! : String;
 	dateDemande! : Date ;
     etat!:String;
     personnel!: Personnel;
-
+    notification!:Notification;
     }

@@ -11,8 +11,9 @@ import { Conge } from '../model/conge.model';
 import { Pret } from '../model/pret.model';
 import { Notification} from '../model/notification.model';
 import { AuthService } from './auth.Service';
-import {  Messagerie } from '../model/messagerie';
 
+import { Commentaire } from '../model/commentaire.model';
+import { Publication } from '../model/publication.model';
 
 const httpOptions = {
     headers: new HttpHeaders( {'Content-Type': 'application/json'} )
@@ -21,18 +22,17 @@ const httpOptions = {
     providedIn: 'root'
   })
   export class PersonnelService{
-   
     apiURLAs: string = 'http://localhost:8088/ressourcesH/api';
     apiURLAb: string = 'http://localhost:8088/ressourcesH/api/abs';
     apiURLDoc: string = 'http://localhost:8088/ressourcesH/api/documents';
     apiURLCon: string = 'http://localhost:8088/ressourcesH/api/contrat';
-    ///////////////////////////////
     baseUrl="http://localhost:8088/ressourcesH/api";
     apiURL="http://localhost:8088/ressourcesH/api/departements";
     apiURLCong="http://localhost:8088/ressourcesH/api/conge";
     apiURLP="http://localhost:8088/ressourcesH/api/pret"
     apiNOT="http://localhost:8088/ressourcesH/api/notification"
-    apiMess="http://localhost:8088/ressourcesH/api/messagerie"
+    apiMess="http://localhost:8088/ressourcesH/api"
+    apiComment="http://localhost:8088/ressourcesH/api/commentaire"
     assiduites!: Assiduite[]; //un tableau de Assiduite
     absences!:Absence[]; //un tableau d'absence'
     documents!:Document[] //un tableau de document
@@ -41,6 +41,9 @@ const httpOptions = {
     notifications! : Notification[];  //un tableau de not
     contrats! : Contrat[];  //un tableau de contrat
      prets! : Pret[];  //un tableau de pret
+     conges!:Conge[];
+    publications!:Publication[] //un tableau;
+     commentaires!:Commentaire[];
     constructor(private http: HttpClient,private authService: AuthService) {}
   
     listeAssiduite(): Observable<Assiduite[]>{
@@ -222,8 +225,8 @@ const httpOptions = {
             let httpHeaders = new HttpHeaders({"Authorization":jwt})
             return this.http.put<Personnel>(this.baseUrl+"/updatePers", as, {headers:httpHeaders});
             }
-      getPersonnelById(idPersonnel:number):Observable<Personnel> {
-        const  url = `${this.baseUrl}/getbyID/${idPersonnel}`;
+      getPersonnelById(id:number):Observable<Personnel> {
+        const  url = `${this.baseUrl}/getbyID/${id}`;
         return this.http.get<Personnel>(url,httpOptions);
         }
       
@@ -394,39 +397,48 @@ const httpOptions = {
             return this.http.put<Notification>(this.apiNOT+"/update", as, {headers:httpHeaders});
           }
            // Messagerie 08/05/2024 //////////////////////////////////
-           listeMessageries(): Observable<Messagerie[]>{
+        
+           ajouterPublication(publication: Publication): Observable<Publication> {
             let jwt = this.authService.getToken();
-            jwt = "Bearer "+jwt;
-            let httpHeaders = new HttpHeaders({"Authorization":jwt})
-            return this.http.get<Messagerie[]>(this.apiMess+"/all",{headers:httpHeaders});
-            }
-            
-          
-            ajouterMessagerie( as: Messagerie):Observable<Messagerie>{
-              let jwt = this.authService.getToken();
-              jwt = "Bearer "+jwt;
-              let httpHeaders = new HttpHeaders({"Authorization":jwt})
-              return this.http.post<Messagerie>(this.apiMess+"/add", as, {headers:httpHeaders});
-              }
-              supprimerMessagerie(id : number) {
-              const url = `${this.apiMess}/delete/${id}`;
-              let jwt = this.authService.getToken();
-              jwt = "Bearer "+jwt;
-              let httpHeaders = new HttpHeaders({"Authorization":jwt})
-              return this.http.delete(url, {headers:httpHeaders});
-              }
-              consulterMessagerie(id: number): Observable<Messagerie> {
-              const url = `${this.apiMess}/getbyid/${id}`;
-              let jwt = this.authService.getToken();
-              jwt = "Bearer "+jwt;
-              let httpHeaders = new HttpHeaders({"Authorization":jwt})
-              return this.http.get<Messagerie>(url,{headers:httpHeaders});
-              }
-              updateMessagerie(as :Messagerie) : Observable<Messagerie> {
-              let jwt = this.authService.getToken();
-              jwt = "Bearer "+jwt;
-              let httpHeaders = new HttpHeaders({"Authorization":jwt})
-              return this.http.put<Messagerie>(this.apiMess+"/update", as, {headers:httpHeaders});
-            }
+            jwt = "Bearer " + jwt;
+            let httpHeaders = new HttpHeaders({ "Authorization": jwt });
+            return this.http.post<Publication>(`${this.apiMess}/publication/ajouter`, publication, { headers: httpHeaders });
+        }
+        
+        supprimerPublication(id: number): Observable<void> {
+            const url = `${this.apiMess}/publication/supprimer/${id}`;
+            let jwt = this.authService.getToken();
+            jwt = "Bearer " + jwt;
+            let httpHeaders = new HttpHeaders({ "Authorization": jwt });
+            return this.http.delete<void>(url, { headers: httpHeaders });
+        }
+        
+        listePublications(): Observable<Publication[]> {
+            let jwt = this.authService.getToken();
+            jwt = "Bearer " + jwt;
+            let httpHeaders = new HttpHeaders({ "Authorization": jwt });
+            return this.http.get<Publication[]>(`${this.apiMess}/publications/tous`, { headers: httpHeaders });
+        }
+        
+        ajouterCommentaire(publicationId: number, commentaire: Commentaire): Observable<Commentaire> {
+            let jwt = this.authService.getToken();
+            jwt = "Bearer " + jwt;
+            let httpHeaders = new HttpHeaders({ "Authorization": jwt });
+            return this.http.post<Commentaire>(`${this.apiMess}/ajouterCommentaires/${publicationId}`, commentaire, { headers: httpHeaders });
+        }
+        supprimerCommentaire(id: number): Observable<void> {
+          const url = `${this.apiMess}/supprimerCommentaire/${id}`;
+          let jwt = this.authService.getToken();
+            jwt = "Bearer " + jwt;
+            let httpHeaders = new HttpHeaders({ "Authorization": jwt });
+            return this.http.delete<void>(url, { headers: httpHeaders });
+        
+      }
+        tousCommentaires(publicationId: number): Observable<Commentaire[]> {
+            let jwt = this.authService.getToken();
+            jwt = "Bearer " + jwt;
+            let httpHeaders = new HttpHeaders({ "Authorization": jwt });
+            return this.http.get<Commentaire[]>(`${this.apiMess}/tousCommentaires/${publicationId}`, { headers: httpHeaders });
+        }
         
   }

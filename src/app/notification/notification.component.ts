@@ -50,7 +50,10 @@ export class NotificationComponent implements OnInit {
   chargerNotifications() {
     this.personnelService.listeNotifications().subscribe((notif) => {
       console.log(notif);
-      this.notifications = notif;
+      this.notifications = notif.map(notification => ({
+        ...notification,
+        type: notification.type.toLowerCase()
+      }));
       // Filtrer les notifications par type
       this.notificationsAbsence = this.notifications.filter(
         (notification) => notification.type === 'absence'
@@ -61,6 +64,7 @@ export class NotificationComponent implements OnInit {
       this.notificationsPret = this.notifications.filter(
         (notification) => notification.type === 'pret'
       );
+    
       // Calculer le nombre de notifications en attente pour chaque type
       this.nbEnAttenteAbsences = this.notificationsAbsence.filter(
         (notification) => notification.etat === 'en attente'
@@ -71,27 +75,28 @@ export class NotificationComponent implements OnInit {
       this.nbEnAttentePrets = this.notificationsPret.filter(
         (notification) => notification.etat === 'en attente'
       ).length;
-
-     // Calculer le nombre de notifications acceptées pour chaque type
-     this.nbEnAcceptedAbsences = this.notificationsAbsence.filter(
-      (notification) => notification.etat === 'accepté'
-    ).length;
-    this.nbEnAcceptedConges = this.notificationsConge.filter(
-      (notification) => notification.etat === 'accepté'
-    ).length;
-    this.nbEnAcceptedPrets = this.notificationsPret.filter(
-      (notification) => notification.etat === 'accepté'
-    ).length;
-
-    // Calculer le nombre de notifications refusées pour chaque type
-    this.nbEnRefusedAbsences = this.notificationsAbsence.filter(
-      (notification) => notification.etat === 'refusé'
-    ).length;
-    this.nbEnRefusedconges = this.notificationsConge.filter(
-      (notification) => notification.etat === 'refusé'
-    ).length;
-    this.nbEnRefusedprets = this.notificationsPret.filter(
-      (notification) => notification.etat === 'refusé'
+    
+      // Calculer le nombre de notifications acceptées pour chaque type
+      this.nbEnAcceptedAbsences = this.notificationsAbsence.filter(
+        (notification) => notification.etat === 'accepté'
+      ).length;
+      this.nbEnAcceptedConges = this.notificationsConge.filter(
+        (notification) => notification.etat === 'accepté'
+      ).length;
+      this.nbEnAcceptedPrets = this.notificationsPret.filter(
+        (notification) => notification.etat === 'accepté'
+      ).length;
+    
+      // Calculer le nombre de notifications refusées pour chaque type
+      this.nbEnRefusedAbsences = this.notificationsAbsence.filter(
+        (notification) => notification.etat === 'refusé'
+      ).length;
+      this.nbEnRefusedconges = this.notificationsConge.filter(
+        (notification) => notification.etat === 'refusé'
+      ).length;
+      this.nbEnRefusedprets = this.notificationsPret.filter(
+        (notification) => notification.etat === 'refusé'
+    
     ).length;
   });
 }

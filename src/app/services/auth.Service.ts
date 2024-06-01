@@ -75,7 +75,11 @@ saveToken(jwt:string){
     }
     return this.roles.includes('USER') && !this.roles.includes('ADMIN');
   }
-  
+  isResponsable(): Boolean {
+    if (!this.roles) return false;
+     return this.roles.indexOf('RESPONSABLE') >=0;
+     return this.roles.includes('RESPONSABLE');
+     }
   
   
 

@@ -14,6 +14,7 @@ export class Personnel {
 	numTelephone! : number;
 	numCin! : String;
 	adresse! : String;
+	sexe! :String ;
 	fonction! :String ;
 	departement!: Departement;
 	conge!:Conge;

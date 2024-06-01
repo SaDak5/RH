@@ -61,6 +61,17 @@
           <div *ngIf="idDepField?.errors?.['idDep'] && !idDepField?.errors?.['required']"></div>
         </div>
       </div>
+
+
+      <div class="mb-3">
+        <label for="sexe" class="form-label">Sexe :</label>
+        <select class="form-control" id="sexe" name="sexe" [(ngModel)]="newPersonnel.sexe" required>
+            <option value="Homme">Homme</option>
+            <option value="Femme">Femme</option>
+        </select>
+        <div *ngIf="!newPersonnel.sexe" class="text-danger">Sexe requis.</div>
+    </div>
+    
     </div>
 
 
@@ -92,8 +103,13 @@
       </div>
 
       <div class="mb-3">
-        <label for="numTelephone" class="form-label">Numero CIN :</label>
-        <input type="text" [(ngModel)]="newPersonnel.numCin" name="numCin" class="form-control" placeholder="Entrez Le cin" required>
+        <label for="numCin" class="form-label">Numero CIN :</label>
+        <input type="text" [(ngModel)]="newPersonnel.numCin" name="numCin" class="form-control" placeholder="Entrez Le cin" required #numCinField="ngModel">
+        <!-- Afficher un message d'erreur si le numéro CIN est vide -->
+        <div *ngIf="numCinField?.invalid && (numCinField?.dirty || numCinField?.touched)" class="text-danger">
+          <div *ngIf="numCinField?.errors?.['required']">Numéro CIN requis.</div>
+          <div *ngIf="numCinField?.errors?.['numCin'] && !numCinField?.errors?.['required']"></div>
+        </div>
       </div>
 
       <div class="mb-3">

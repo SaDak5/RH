@@ -1,4 +1,5 @@
 import { Absence } from "./absence.model";
+import { Conge } from "./conge.model";
 import { Personnel } from "./personnel.model";
 import { Pret } from "./pret.model";
 
@@ -8,7 +9,7 @@ export class Notification {
     dateDemande!:Date;
     dateDebut!:Date;
     dateFin!:Date;
-    periode!: string;
+    periode!: number;
     montant!:number;
     dateRemise!:Date;
     type! : string;
@@ -16,4 +17,5 @@ export class Notification {
     personnel!:Personnel;
     absence!:Absence;
     pret: Pret = new Pret();
+    conge!:Conge;
 }

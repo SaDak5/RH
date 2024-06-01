@@ -1,7 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { Absence } from '../model/absence.model';
 import { PersonnelService } from '../services/Personnel.Service';
-import { Notification } from '../model/notification.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.Service';
 
@@ -24,7 +23,6 @@ export class ListeAbsencesComponent implements OnInit {
    
    }
   
-   
    chargerAbsences(){
 
      this.personnelService.listeAbsences().subscribe(abs=> {
@@ -36,12 +34,12 @@ export class ListeAbsencesComponent implements OnInit {
    }
    
    supprimerAbsence(a: Absence) {
-    let conf = confirm("Etes-vous sûr ?");
+    let conf = confirm("Etes-vous sûr de la supprimer ?");
     if (conf) {
       this.personnelService.supprimerAbsence(a.idAbs).subscribe(() => {
         console.log("produit supprimé");
         this.chargerAbsences();
-        this.successMessage = 'Absence supprimée avec succès.'; // Mettre à jour le message de succès
+        this.successMessage = 'Absence supprimée avec succès.'; 
         setTimeout(() => {
           this.successMessage = '';
         }, 4000);

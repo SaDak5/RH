@@ -45,8 +45,9 @@ import { UpadateNotificationComponent } from './upadate-notification/upadate-not
 
 import { UpdateDemandePretComponent } from './update-demande-pret/update-demande-pret.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { MessagerieComponent } from './messagerie/messagerie.component';
-import { AddMessagerieComponent } from './add-messagerie/add-messagerie.component';
+
+import { PublicationComponent } from './publication/publication.component';
+import { AddPublicationComponent } from './add-publication/add-publication.component';
 
 
 
@@ -98,8 +99,9 @@ import { AddMessagerieComponent } from './add-messagerie/add-messagerie.componen
 
     UpdateDemandePretComponent,
     DashboardComponent,
-    MessagerieComponent,
-    AddMessagerieComponent,
+
+    PublicationComponent,
+    AddPublicationComponent,
     
     
   ],

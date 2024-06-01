@@ -29,13 +29,14 @@
         <input type="text" placeholder="">
          <span class="tooltip">Search</span>
       </li> 
-      <li>
+      <li *ngIf="authService.isAdmin()">
         <a routerLink="/dashboard">
-          <i class="bx bx-grid-alt"></i>
-          <span class="link_name">Dashboard</span>
+            <i class="bx bx-grid-alt"></i>
+            <span class="link_name">Dashboard</span>
         </a>
         <span class="tooltip">Dashboard</span>
-      </li>
+    </li>
+    
       <li>
         <a href="#">
           <i class="bx bx-user"></i>
@@ -129,12 +130,12 @@
                   </div>
 
 
-                  <div class="message-icon" *ngIf="nombreMessages > 0 && authService.isUserOnly()">
+                  <!-- <div class="notification-icon" *ngIf="nombreMessages > 0 && authService.isUserOnly()">
                     <a (click)="resetMessageCountAndNavigate()" routerLink="/messagerie">
-                      <i class="fas fa-envelope" style="font-size: 36px; color: rgb(169, 144, 144);"></i>
-                      <span class="message-badge">{{ nombreMessages }}</span>
+                      <i class="material-icons" style="font-size: 36px; color: rgb(169, 144, 144);">cancel</i>
+                      <span class="notification-badge text-red">{{ nombreMessages }}</span>
                     </a>
-                  </div>
+                  </div> -->
                   
                   
         </div>
@@ -193,6 +194,7 @@
         <img src="/assets/congé.png" alt="conge">
         <div class="card-body">
           <h3>Conge</h3>
+          <br>
           <p></p>
         </div>
       </div>
@@ -204,6 +206,7 @@
         <img src="/assets/contrat.png" alt="contrat">
         <div class="card-body">
           <h3>Contrat</h3>
+          <br>
           <p></p>
         </div>
       </div>
@@ -215,6 +218,7 @@
         <img src="/assets/pret.png" alt="pret">
         <div class="card-body">
           <h3>Pret</h3>
+          <br>
           <p></p>
         </div>
       </div>
@@ -226,6 +230,17 @@
         <img src="/assets/documentadministratif.png" alt="documentation">
         <div class="card-body">
           <h4>Documents <br> Administratifs</h4>
+          <p></p>
+        </div>
+      </div>
+    </a>
+  <br/>
+    <a routerLink="/notification" target="_blank">
+      <div class="card">
+        <img src="/assets/main.png" alt="notification">
+        <div class="card-body">
+          <h4>Notifications </h4>
+          <br>
           <p></p>
         </div>
       </div>

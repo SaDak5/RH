@@ -3,10 +3,11 @@
 <div class="container">
   <h2>Liste Conge</h2>
   <a *ngIf="authService.isAdmin()" class="btn btn-success" routerLink="/addConge">
-    <i  class="bi bi-plus-circle"></i> Ajouter Absence
-  </a> 
-    <div class="card shadow mb-4">
-      <div class="card-body">
+    <i class="bi bi-plus-circle"></i> Ajouter Absence
+  </a>
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div *ngIf="conges.length > 0; else emptyTable">
         <table class="table table-striped">
           <thead>
             <tr>
@@ -14,9 +15,9 @@
               <th>Type Conge</th>
               <th>Date Debut</th>
               <th>Date Fin</th>
-              <th>Justification Conge</th>
               <th>Date Demande</th>
-              <th>personnel correspondant</th>
+              <th>Personnel Correspondant</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -25,36 +26,32 @@
               <td>{{ conge.typeConge }}</td>
               <td>{{ conge.dateDebut | date:'dd/MM/yyyy'}}</td>
               <td>{{ conge.dateFin | date:'dd/MM/yyyy' }}</td>
-              <td>{{ conge.justifConge }}</td>
               <td>{{ conge.dateDemande | date:'dd/MM/yyyy'}}</td>
-               <td>
-                                <a [routerLink]="['/profil', conge.personnel?.id]">
-                                    {{ conge.personnel?.nom }} {{ conge.personnel?.prenom + ' - ' + conge.personnel?.numCin}}
-                                </a>
-                            </td>
+              <td>
+                <a [routerLink]="['/profil', conge.personnel?.id]">
+                  {{ conge.personnel?.nom }} {{ conge.personnel?.prenom }} - {{ conge.personnel?.numCin }}
+                </a>
+              </td>
               <td>
                 <a *ngIf="authService.isAdmin()" class="btn btn-primary" (click)="modifierConge(conge.idConge)">
                   <i class="bi bi-pencil-square"></i>
-              
+                </a>
+                <a *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="supprimerConge(conge)">
+                  <i class="bi bi-trash"></i>
                 </a>
               </td>
-  
-              <td>
-                <a *ngIf="authService.isAdmin()"class="btn btn-danger"
-                (click)="supprimerConge(conge)">
-                <i class="bi bi-trash"></i>
-              </a>
-              </td> 
-
             </tr>
           </tbody>
         </table>
       </div>
+      <ng-template #emptyTable>
+        <p class="text-center">La table est vide</p>
+      </ng-template>
     </div>
-    <div style="position: fixed; bottom: 20px; left: 20px;">
-      <a routerLink="/sidebar" class="btn btn-primary">
-          <span class="glyphicon glyphicon-chevron-left"></span> 
-      </a>
   </div>
+  <div style="position: fixed; bottom: 20px; left: 20px;">
+    <a routerLink="/sidebar" class="btn btn-primary">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
   </div>
-  
+</div>

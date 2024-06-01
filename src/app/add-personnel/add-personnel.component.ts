@@ -13,6 +13,7 @@ const phoneNumberPattern = /^\+216\d{8}$/;
   styleUrls: ['./add-personnel.component.css']
 })
 export class AddPersonnelComponent implements OnInit {
+[x: string]: any;
 departements! : Departement[];
 newPersonnel = new Personnel(); 
 newIdDep! : number;
@@ -36,6 +37,7 @@ constructor(private personnelService : PersonnelService,
             }
           
             addPersonnel() {
+              
               // Vérifier si l'email est valide "hnee ma ya3mel ajout ken y3ayet lel methode li nvalidiw beha mail 
               if (this.validateEmail() !== '') {
                alert('Veuillez entrer une adresse e-mail valide.');

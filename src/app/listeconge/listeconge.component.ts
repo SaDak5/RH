@@ -41,17 +41,8 @@ export class ListecongeComponent implements OnInit {
     
     }
 
-
-
-   
-  
   ngOnInit(): void {
-    
-
   this.chargerConges();
-
 }
-
-
 
 }

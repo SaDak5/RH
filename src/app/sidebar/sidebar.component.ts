@@ -30,7 +30,7 @@ export class SidebarComponent implements OnInit {
     this.countNotificationsConge();
     this.countAcceptedNotifications(); 
     this.countRefusedNotifications();
-    this.countMessages(); // Appel de la méthode countMessages ici
+    // this.countMessages(); // Appel de la méthode countMessages ici
   }
   
   
@@ -81,18 +81,22 @@ export class SidebarComponent implements OnInit {
     });
   }
   
-  countMessages(): void {
-    this.personnelService.listeMessageries().subscribe(messages => {
-      // Count all messages
-      this.nombreMessages = messages.length;
-    });
-  }
-  resetMessageCountAndNavigate(): void {
-    // Réinitialiser le nombre de messages
+  // countMessages(): void {
+  //   this.personnelService.listeMessageries().subscribe((messages) => {
+      
+  //     this.nombreMessages = messages.length;
+      
+  //     setTimeout(() => {
+  //       this.nombreMessages = 0;
+  //     }, 86400000); 
+  //   });
+  // }
+ resetMessageCountAndNavigate(): void {
+    // Réinitialiser le nombre de messages à null
     this.nombreMessages = 0;
     // Naviguer vers la page de messagerie
     this.router.navigate(['/messagerie']);
-  }
+}
 
   initializeNavbar() {
     const closeBtn = document.querySelector("#btn") as HTMLElement | null;

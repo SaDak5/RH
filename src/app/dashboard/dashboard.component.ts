@@ -4,6 +4,7 @@ import { PersonnelService } from '../services/Personnel.Service';
 import { AuthService } from '../services/auth.Service';
 import { Router } from '@angular/router';
 import { Assiduite } from '../model/assiduite.model';
+import { Contrat } from '../model/contrat.model';
 
 
 
@@ -13,14 +14,22 @@ import { Assiduite } from '../model/assiduite.model';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  
   personnelCounts: { department: string, count: number }[] = [];
   notifications! :Notification[] ;
   personnel! :Personnel[] ;
   assiduites? : Assiduite[] ;
+  contrats?:Contrat[]
   nombreNotifications: number = 0;
-  nombrePersonnel: number = 0;
   nombreDepartement: number = 0;
   nombreHeuresTravailleesMoyenne: number = 0;
+  moyenneSalaire: number = 0;
+  nombrePersonnel: number = 0;
+  nombreFemmes: number = 0;
+  nombreHommes: number = 0;
+  nombreContrats: number = 0;
+  nombreCDD: number = 0;  
+  nombreCDI: number = 0;
   constructor( private personnelService: PersonnelService ,private router: Router ,public authService: AuthService) {
   
       }
@@ -33,8 +42,13 @@ export class DashboardComponent implements OnInit {
         this.countDepartement();
         this.chargerAssiduites(); 
         this.calculerMoyenneHeuresTravaillees();
-        
-        
+        this.chargerContrats();
+        this.AverageSalaire();
+        this.countFemmes();
+        this.countHommes();
+        this.countContrats();
+        this.countCDD();  
+        this.countCDI();
         
        
        }
@@ -59,6 +73,8 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+
+  
   calculerMoyenneHeuresTravaillees(): void {
     if (this.assiduites && this.assiduites.length > 0) {
       let totalHeuresTravaillees = 0;
@@ -72,8 +88,59 @@ export class DashboardComponent implements OnInit {
     this.personnelService.listeAssiduite().subscribe(ass => {
       console.log(ass);
       this.assiduites = ass;
-      this.calculerMoyenneHeuresTravaillees(); // Assurez-vous de calculer la moyenne après avoir reçu les données
+      this.calculerMoyenneHeuresTravaillees();
+      
     });
   }
-  
+  AverageSalaire(): void {
+    if (this.contrats && this.contrats.length > 0) {
+      let total = 0;
+      for (let contrat of this.contrats) {
+        total +=contrat.salaire;
+      }
+      this.moyenneSalaire= total / this.contrats.length;
+    }
+  }
+  chargerContrats(): void {
+    this.personnelService.listeContrat().subscribe(contrats => {
+        this.contrats = contrats;
+        this.AverageSalaire();
+        this.countContrats();
+        this.countCDD();  
+        this.countCDI();
+    });
+}
+  status = false;
+  addToggle()
+  {
+    this.status = !this.status;       
+  }
+
+  countFemmes(): void {
+    this.personnelService.listePersonnels().subscribe(personnel => {
+      this.nombreFemmes = personnel.filter(p => p.sexe === 'Femme').length;
+    });
+  }
+
+  countHommes(): void {
+    this.personnelService.listePersonnels().subscribe(personnel => {
+      this.nombreHommes = personnel.filter(p => p.sexe === 'Homme').length;
+    });
+  }
+  countContrats(): void {  // Add this method
+    if (this.contrats) {
+      this.nombreContrats = this.contrats.length;
+    }
+  }
+  countCDD(): void {
+    if (this.contrats && this.contrats.length > 0) {
+      this.nombreCDD = this.contrats.filter(contrat => contrat.type === 'CDD').length;
+    }
+  }
+
+  countCDI(): void {
+    if (this.contrats && this.contrats.length > 0) {
+      this.nombreCDI = this.contrats.filter(contrat => contrat.type === 'CDI').length;
+    }
+  }
 }

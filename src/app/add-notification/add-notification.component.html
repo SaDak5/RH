@@ -20,9 +20,9 @@
             <div class="form-group">
                 <label>Type<span style="color: red">*</span></label>
                 <select [(ngModel)]="newNotification.type" name="type" class="form-control">
-                    <option value="absence">Absence</option>
+                    <option value="absence">absence</option>
                     <option value="congé">Congé</option>
-                    <option value="pret">Prêt</option>
+                    <option value="pret">Pret</option>
                 </select>
             </div>
             <div class="form-group">
@@ -34,12 +34,13 @@
             <div class="form-group">
                 <label>Personnel correspondant</label>
                 <select [(ngModel)]="selectedPersonnel" name="personnel" class="form-control">
-                    <option *ngFor="let personnel of personnels" [ngValue]="personnel">{{ personnel.nom }} {{ personnel.prenom + ' - ' + personnel.numCin}}</option>
+                    <option *ngFor="let personnel of personnels" [ngValue]="personnel">{{ personnel.nom }} {{ personnel.prenom + ' -***** ' + personnel.numCin.slice(-3) }}</option>
+
                 </select>
             </div>
             <div class="form-group">
                 <label>Période</label>
-                <input type="text" [(ngModel)]="newNotification.periode" name="periode" class="form-control">
+                <input type="number" [(ngModel)]="newNotification.periode" name="periode" class="form-control">
             </div>
         </div>
     </div>
@@ -54,9 +55,9 @@
             <div class="form-group">
                 <label>Type<span style="color: red">*</span></label>
                 <select [(ngModel)]="newNotification.type" name="type" class="form-control">
-                    <option value="absence">Absence</option>
+                    <option value="absence">absence</option>
                     <option value="congé">Congé</option>
-                    <option value="pret">Prêt</option>
+                    <option value="pret">Pret</option>
                 </select>
             </div>
             <div class="form-group">
@@ -68,7 +69,8 @@
             <div class="form-group">
                 <label>Personnel correspondant</label>
                 <select [(ngModel)]="selectedPersonnel" name="personnel" class="form-control">
-                    <option *ngFor="let personnel of personnels" [ngValue]="personnel">{{ personnel.nom }} {{ personnel.prenom + ' - ' + personnel.numCin}}</option>
+                    <option *ngFor="let personnel of personnels" [ngValue]="personnel">{{ personnel.nom }} {{ personnel.prenom + ' - *****' + personnel.numCin.slice(-3) }}</option>
+
                 </select>
             </div>
             <div class="form-group">
@@ -92,9 +94,9 @@
             <div class="form-group">
                 <label>Type<span style="color: red">*</span></label>
                 <select [(ngModel)]="newNotification.type" name="type" class="form-control">
-                    <option value="absence">Absence</option>
-                    <option value="congé">Congé</option>
-                    <option value="pret">Prêt</option>
+                    <option value="absence">absence</option>
+                    <option value="congé">congé</option>
+                    <option value="pret">Pret</option>
                 </select>
             </div>
             <div class="form-group">
@@ -106,7 +108,8 @@
             <div class="form-group">
                 <label>Personnel correspondant</label>
                 <select [(ngModel)]="selectedPersonnel" name="personnel" class="form-control">
-                    <option *ngFor="let personnel of personnels" [ngValue]="personnel">{{ personnel.nom}} {{ personnel.prenom + ' - ' + personnel.numCin}}</option>
+                    <option *ngFor="let personnel of personnels" [ngValue]="personnel">{{ personnel.nom }} {{ personnel.prenom + ' - *****' + personnel.numCin.slice(-3) }}</option>
+
                 </select>
             </div>
             <div class="form-group">

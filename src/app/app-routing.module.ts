@@ -33,14 +33,14 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { RegisterComponent } from './register/register.component';
 import { UpdateDepartementComponent } from './update-departement/update-departement.component';
 import { VerifEmailComponent } from './verif-email/verif-email.component';
-
 import { NotificationComponent } from './notification/notification.component';
 import { AddNotificationComponent } from './add-notification/add-notification.component';
 import { UpadateNotificationComponent } from './upadate-notification/upadate-notification.component';
-
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { AddMessagerieComponent } from './add-messagerie/add-messagerie.component';
-import { MessagerieComponent } from './messagerie/messagerie.component';
+import { PublicationComponent } from './publication/publication.component';
+import { AddPublicationComponent } from './add-publication/add-publication.component';
+
+
 const routes: Routes = [
   {path: "assiduites", component : AssiduitesComponent},
   {path: "addAssiduite", component : AddAssiduiteComponent},
@@ -82,8 +82,10 @@ const routes: Routes = [
   { path: 'notification', component: NotificationComponent },
   {path: "addNotification", component : AddNotificationComponent},
   { path: 'updateNotification/:id', component: UpadateNotificationComponent },
-  {path: 'messagerie', component: MessagerieComponent},
-  {path: "addMessagerie", component : AddMessagerieComponent},
+  {path: 'publication', component: PublicationComponent},
+  {path: "addPublication", component : AddPublicationComponent},
+ 
+ 
   
   //{ path: 'addDemandePret', component: AddDemandePretComponent },
   {path:'dashboard', component: DashboardComponent },
