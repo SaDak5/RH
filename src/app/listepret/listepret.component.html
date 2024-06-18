@@ -33,7 +33,7 @@
           
            
               <td>
-                <a *ngIf="authService.isAdmin()" class="btn btn-primary" (click)="modifierPret(pret.idPret)">
+                <a *ngIf="authService.isAdmin() || authService.isResponsable()" class="btn btn-warning" (click)="modifierPret(pret.idPret)">
                   <i class="bi bi-pencil-square"></i>
               
                 </a>

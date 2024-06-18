@@ -29,3 +29,15 @@
   font-size: 20px; /* Taille de police des icônes */
   margin-right: 5px; /* Marge à droite pour espacement */
 }
+/* CSS pour styliser la disposition de l'icône "vu" */
+.seen-icon-container {
+  position: relative;
+   text-align: right; 
+}
+/* eye icone */
+.check-icon {
+ 
+  /* transform: translateX(-50%); */
+  font-size: 13px;
+  color: rgb(98, 99, 98); /* Couleur de l'icône "vu" */
+}

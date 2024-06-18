@@ -33,14 +33,16 @@
                             <td>{{ a.statut }}</td>
                             <td>{{ a.assiduite?.personnel?.nom+ '  ' + a.assiduite?.personnel?.prenom+ ' - ' + a.assiduite?.personnel?.numCin}}</td>
                            
+                
                             <td>
-                                <a *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="supprimerAbsence(a)">
-                                    Supprimer <i class="bi bi-pencil-square"></i>
+                                <a *ngIf="authService.isAdmin() || authService.isResponsable()" class="btn btn-warning" [routerLink]="['/updateAbsence',a.idAbs]">
+                                    
+                                     <i class="bi bi-pencil-square"></i>
                                 </a>
                             </td>
                             <td>
-                                <a *ngIf="authService.isAdmin()" class="btn btn-warning" [routerLink]="['/updateAbsence',a.idAbs]">
-                                    Modifier <i class="bi bi-trash"></i>
+                                <a *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="supprimerAbsence(a)">
+                                    <i class="bi bi-trash"></i>
                                 </a>
                             </td>
                         </tr>

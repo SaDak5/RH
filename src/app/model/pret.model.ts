@@ -9,6 +9,7 @@ export class Pret {
     dateRemise!: Date 
     //tauxInteret!:Date
 	etat!:String;
+	username! : String;
 	personnel!:Personnel;
 	notification!:Notification;
 }

@@ -13,7 +13,7 @@
             </form>
     
        
-    <a class="btn btn-success" routerLink="/addDep">
+    <a class="btn btn-primary" routerLink="/addDep">
         <i class="bi bi-plus-circle"></i> Ajouter Departement
       </a> 
    
@@ -33,7 +33,7 @@
                        <td>{{dep.nomDep}}</td>
                        <td>
                         <td>
-                            <a *ngIf="authService.isAdmin()" class="btn btn-primary" (click)="modifierDepartement(dep.idDep)">
+                            <a *ngIf="authService.isAdmin() || authService.isResponsable()" class="btn btn-warning" (click)="modifierDepartement(dep.idDep)">
                             <i class="bi bi-pencil-square"></i>
                         </a>
                         </td>
@@ -48,4 +48,9 @@
                </tbody>
            </table>
        </div>
+       <div style="position: fixed; bottom: 20px; left: 20px;">
+        <a routerLink="/sidebar" class="btn btn-primary">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+      </div>
    </div>

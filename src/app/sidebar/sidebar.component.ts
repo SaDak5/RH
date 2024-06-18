@@ -1,102 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { PersonnelService } from '../services/Personnel.Service';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.Service';
-import { NotificationComponent } from '../notification/notification.component';
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  constructor( private personnelService: PersonnelService ,private router: Router,public authService: AuthService) {
-  
-  }
+  searchTerm: string = '';
+  filteredItems: string[] = [];
   nombreNotificationsConge: number = 0;
   nombreNotificationsPret: number = 0;
   nombreNotificationsAbsence: number = 0;
-  nombreNotificationsAccepte: number = 0;
-  nombreNotificationsRefuse: number = 0;
-  nombreMessages: number = 0;
   showNotificationIcon: boolean = true;
-
   
-
-  
-  ngOnInit(): void {
-    this.initializeNavbar();
-    this.countNotificationsAbsence();
-    this.countNotificationsPret();
-    this.countNotificationsConge();
-    this.countAcceptedNotifications(); 
-    this.countRefusedNotifications();
-    // this.countMessages(); // Appel de la méthode countMessages ici
+  constructor(private personnelService: PersonnelService ,private router: Router,public authService: AuthService){
+    this.filteredItems = this.getAllItems();
   }
   
-  
-  showNotification() {
-    alert('Notification: You have new messages!');
+  getAllItems(): string[] {
+    return ['dashboard', 'profile', 'users', 'publication', 'notifications', 'order', 'settings'];
   }
 
-  countNotificationsAbsence(): void {
-    this.personnelService.listeNotifications().subscribe(notifications => {
-      // Filter the notifications array to get only those with the state "En attente"
-      const pendingNotifications = notifications.filter(notification => notification.etat === 'en attente' && notification.type === 'absence');
-      // Count the filtered notifications
-      this.nombreNotificationsAbsence = pendingNotifications.length;
-    });
-  }
-  countNotificationsConge(): void {
-    this.personnelService.listeNotifications().subscribe(notifications => {
-      // Filter the notifications array to get only those with the state "En attente"
-      const pendingNotifications = notifications.filter(notification => notification.etat === 'en attente' && notification.type === 'congé');
-      // Count the filtered notifications
-      this.nombreNotificationsConge = pendingNotifications.length;
-    });
+  filterItems() {
+    const lowerSearchTerm = this.searchTerm.toLowerCase();
+    this.filteredItems = this.getAllItems().filter(item => item.toLowerCase().includes(lowerSearchTerm));
   }
 
-  countNotificationsPret(): void {
-    this.personnelService.listeNotifications().subscribe(notifications => {
-      // Filter the notifications array to get only those with the state "En attente"
-      const pendingNotifications = notifications.filter(notification => notification.etat === 'en attente' && notification.type === 'pret');
-      // Count the filtered notifications
-      this.nombreNotificationsPret = pendingNotifications.length;
-    });
-  }
-  countAcceptedNotifications(): void {
-    this.personnelService.listeNotifications().subscribe(notifications => {
-      // Filter the notifications array to get only those with the state "Accepté"
-      const acceptedNotifications = notifications.filter(notification => notification.etat === 'accepté');
-      // Count the filtered notifications
-      this.nombreNotificationsAccepte = acceptedNotifications.length;
-    });
-  }
   
-  countRefusedNotifications(): void {
-    this.personnelService.listeNotifications().subscribe(notifications => {
-      // Filter the notifications array to get only those with the state "Refusé"
-      const refusedNotifications = notifications.filter(notification => notification.etat === 'refusé');
-      // Count the filtered notifications
-      this.nombreNotificationsRefuse = refusedNotifications.length;
-    });
+  redirectToProfile() {
+    const role = this.authService.getRole();
+    if (role === 'ADMIN') {
+      this.router.navigate(['/admin']);
+    } else if (role === 'RESPONSABLE') {
+      this.router.navigate(['/responsable']);
+    } 
   }
-  
-  // countMessages(): void {
-  //   this.personnelService.listeMessageries().subscribe((messages) => {
-      
-  //     this.nombreMessages = messages.length;
-      
-  //     setTimeout(() => {
-  //       this.nombreMessages = 0;
-  //     }, 86400000); 
-  //   });
-  // }
- resetMessageCountAndNavigate(): void {
-    // Réinitialiser le nombre de messages à null
-    this.nombreMessages = 0;
-    // Naviguer vers la page de messagerie
-    this.router.navigate(['/messagerie']);
-}
 
   initializeNavbar() {
     const closeBtn = document.querySelector("#btn") as HTMLElement | null;
@@ -131,5 +72,45 @@ export class SidebarComponent implements OnInit {
         closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");
       }
     }
+  }
+
+
+  countNotificationsAbsence(): void {
+    this.personnelService.listeNotifications().subscribe(notifications => {
+      // Filter the notifications array to get only those with the state "En attente"
+      const pendingNotifications = notifications.filter(notification => notification.etat === 'en attente' && notification.type === 'absence');
+      // Count the filtered notifications
+      this.nombreNotificationsAbsence = pendingNotifications.length;
+    });
+  }
+  countNotificationsConge(): void {
+    this.personnelService.listeNotifications().subscribe(notifications => {
+      // Filter the notifications array to get only those with the state "En attente"
+      const pendingNotifications = notifications.filter(notification => notification.etat === 'en attente' && notification.type === 'congé');
+      // Count the filtered notifications
+      this.nombreNotificationsConge = pendingNotifications.length;
+    });
+  }
+
+  countNotificationsPret(): void {
+    this.personnelService.listeNotifications().subscribe(notifications => {
+      // Filter the notifications array to get only those with the state "En attente"
+      const pendingNotifications = notifications.filter(notification => notification.etat === 'en attente' && notification.type === 'pret');
+      // Count the filtered notifications
+      this.nombreNotificationsPret = pendingNotifications.length;
+    });
+  }
+
+  showNotification() {
+    alert('Notification: You have new messages!');
+  }
+  
+  ngOnInit(): void {
+    this.initializeNavbar();
+    this.countNotificationsAbsence();
+    this.countNotificationsPret();
+    this.countNotificationsConge();
+
+   
   }
 }

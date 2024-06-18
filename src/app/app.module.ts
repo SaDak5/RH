@@ -48,6 +48,20 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { PublicationComponent } from './publication/publication.component';
 import { AddPublicationComponent } from './add-publication/add-publication.component';
+import { PersonnelCongeDataComponent } from './personnel-conge-data/personnel-conge-data.component';
+import { PersonnelPretDataComponent } from './personnel-pret-data/personnel-pret-data.component';
+import { PersonnelContratDataComponent } from './personnel-contrat-data/personnel-contrat-data.component';
+import { PersonnelAssiduiteDataComponent } from './personnel-assiduite-data/personnel-assiduite-data.component';
+import { ResponsableComponent } from './responsable/responsable.component';
+import { EditProfilComponent } from './edit-profil/edit-profil.component';
+import { EditProfilRespComponent } from './edit-profil-resp/edit-profil-resp.component';
+import { AdminComponent } from './admin/admin.component';
+import { EditProfilAdminComponent } from './edit-profil-admin/edit-profil-admin.component';
+import { PersonnelDocDataComponent } from './personnel-doc-data/personnel-doc-data.component';
+import { PersonnelDataComponent } from './personnel-data/personnel-data.component';
+import { UpdateAdminComponent } from './update-admin/update-admin.component';
+import { UsersComponent } from './users/users.component';
+import { ProfilAdministrateurComponent } from './profil-administrateur/profil-administrateur.component';
 
 
 
@@ -102,6 +116,20 @@ import { AddPublicationComponent } from './add-publication/add-publication.compo
 
     PublicationComponent,
     AddPublicationComponent,
+    PersonnelCongeDataComponent,
+    PersonnelPretDataComponent,
+    PersonnelContratDataComponent,
+    PersonnelAssiduiteDataComponent,
+    ResponsableComponent,
+    EditProfilComponent,
+    EditProfilRespComponent,
+    AdminComponent,
+    EditProfilAdminComponent,
+    PersonnelDocDataComponent,
+    PersonnelDataComponent,
+    UpdateAdminComponent,
+    UsersComponent,
+    ProfilAdministrateurComponent,
     
     
   ],

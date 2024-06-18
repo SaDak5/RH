@@ -22,15 +22,14 @@ export class AddAssiduiteComponent implements OnInit {
   constructor(private personnelService: PersonnelService, private router: Router) {}
 
   ngOnInit(): void {
-    this.personnelService.listePersonnels().
-    subscribe(abs => {console.log(abs);
-    this.personnels = abs;
-    }
-    );
+    this.newAssiduite.nbHeures = 160; // Définir nbHeures à 1000 par défaut
+    this.personnelService.listePersonnels().subscribe(abs => {
+      console.log(abs);
+      this.personnels = abs;
+    });
   }
 
-  addAssiduite() {
-    
+  addAssiduite() {    
     if (this.selectedPersonnel) {
       this.newAssiduite.personnel = this.selectedPersonnel; // Stocker l'objet Personnel sélectionné
       this.personnelService.ajouterAssiduite(this.newAssiduite).subscribe(() => {

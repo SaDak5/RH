@@ -33,7 +33,7 @@
                 </a>
               </td>
               <td>
-                <a *ngIf="authService.isAdmin()" class="btn btn-primary" (click)="modifierConge(conge.idConge)">
+                <a *ngIf="authService.isAdmin() || authService.isResponsable()" class="btn btn-warning" (click)="modifierConge(conge.idConge)">
                   <i class="bi bi-pencil-square"></i>
                 </a>
                 <a *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="supprimerConge(conge)">

@@ -4,30 +4,28 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <div class="container">
-
-    <div class="mb-3">
-        <h2 class="mb-0">Liste demandes</h2>
-        <a *ngIf="authService.isUserOnly()" class="btn btn-success btn" routerLink="/addNotification">
-            <i class="bi bi-plus"></i> <strong>+</strong>
-        </a>
-    </div>
+    <h2>Liste des demandes</h2>
 
     <div class="btn-group">
-        <button class="btn btn-primary btn-lg" (click)="afficherAbsences()" [class.active]="isAbsencesActive">Absences
+        <button class="btn btn-primary" (click)="afficherAbsences()" [class.active]="isAbsencesActive">Absences
             <span class="badge badge-light" *ngIf="authService.isAdmin()">{{ nbEnAttenteAbsences }}</span>
             <span class="badge badge-success" *ngIf="nbEnAcceptedAbsences> 0 && authService.isUserOnly()">{{ nbEnAcceptedAbsences }}</span>
             <span class="badge badge-danger"*ngIf="nbEnRefusedAbsences> 0 && authService.isUserOnly()">{{ nbEnRefusedAbsences }}</span>
         </button>
-        <button class="btn btn-primary btn-lg mr2" (click)="afficherConges()" [class.active]="isCongesActive">Congés
+        <button class="btn btn-primary" (click)="afficherConges()" [class.active]="isCongesActive">Congés
             <span class="badge badge-light" *ngIf="authService.isAdmin()">{{ nbEnAttenteConges }}</span>
             <span class="badge badge-success" *ngIf="nbEnAcceptedConges> 0 && authService.isUserOnly()">{{ nbEnAcceptedConges }}</span>
             <span class="badge badge-danger" *ngIf="nbEnRefusedconges> 0 && authService.isUserOnly()">{{ nbEnRefusedconges }}</span>
         </button>
-        <button class="btn btn-primary btn-lg" (click)="afficherPrets()" [class.active]="isPretsActive">Prêts
+        <button class="btn btn-primary" (click)="afficherPrets()" [class.active]="isPretsActive">Prêts
             <span class="badge badge-light" *ngIf="authService.isAdmin()">{{ nbEnAttentePrets }}</span>
             <span class="badge badge-success" *ngIf="nbEnAcceptedPrets> 0 && authService.isUserOnly()">{{ nbEnAcceptedPrets }}</span>
             <span class="badge badge-danger" *ngIf="nbEnRefusedprets> 0 && authService.isUserOnly()">{{ nbEnRefusedprets}}</span>
         </button>
+    
+
+
+        
     </div>
 
     <!-- Tableau pour les notifications de type "Absence" -->
@@ -57,11 +55,12 @@
                             'blinking-red': notification.etat === 'en attente',
                             'text-success': notification.etat === 'accepté',
                             'text-danger': notification.etat === 'refusé',
-                           
+                            'text-dark': notification.etat === 'refusé'
                         }">
                             {{ notification.etat === 'en attente' ? 'en attente' : (notification.etat === 'accepté' ? 'accepté' : 'refusé') }}
                             <i *ngIf="notification.etat === 'en attente'" class="fa fa-spinner w3-spin" style="font-size:18px; margin-left: 5px;"></i>
                         </span>
+                       
                     </td>
 
                     <!-- Actions (affichées uniquement pour les administrateurs) -->
@@ -73,31 +72,33 @@
                             <a *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="refuserDemande(notification)">
                                 <i class="fa fa-close"></i>
                             </a>
-                            <a *ngIf="authService.isAdmin()" class="btn btn-warning" [routerLink]="['/', notification.type === 'Congé' ? 'addConge' : notification.type === 'absence' ? 'addAbsence' : 'addPret']">
+                            <a *ngIf="authService.isAdmin()" class="btn btn-warning" [routerLink]="['/', notification.type === 'Congé' ? 'addConge' : notification.type === 'Absence' ? 'addAbsence' : 'addPret']">
                                 <i class="fa fa-edit"></i>
                             </a>
-                            <!-- <a *ngIf="authService.isAdmin()" 
-   class="btn btn-warning" 
-   [routerLink]="['/addConge']" 
-   [queryParams]="{ 
-      typeConge: notification.type, 
-      dateDebut: notification.dateDebut, 
-      dateFin: notification.dateFin, 
-      dateDemande: notification.dateDemande, 
-      nom: notification.personnel?.nom, 
-      prenom: notification.personnel?.prenom, 
-      numCin: notification.personnel?.numCin 
-   }">
-   <i class="fa fa-edit"></i>
-</a> -->
+
+                            <div *ngIf="authService.isAdmin()" class="seen-icon-container">
+                                <i class="fa fa-check check-icon" *ngIf="notification.lu">Vu</i>
+                            </div>
 
                             <a *ngIf="authService.isUserOnly()" class="btn btn-danger" (click)="supprimerNotification(notification)">
                                 Supprimer <i class="bi bi-trash"></i>
                             </a>
+                           
                             <!-- <a *ngIf="authService.isUserOnly()" class="btn btn-warning" [routerLink]="['/updateNotification', notification.idNotification]">
                                 Modifier <i class="bi bi-pencil-square"></i>
                             </a> -->
+                            <a *ngIf="authService.isUserOnly()" class="btn btn-primary custom-button" 
+                            [ngClass]="{ 'clicked': notification.lu }" (click)="markAsRead($event, notification)">
+                            <i class="fa fa-eye eye-icon" *ngIf="notification.lu"></i>
+                         </a>
+
+
                         </td>
+                        <!-- HTML pour afficher les notifications -->
+
+  
+
+
                     
                 </tr>
             </tbody>
@@ -133,7 +134,7 @@
                             'blinking-red': notification.etat === 'en attente',
                             'text-success': notification.etat === 'accepté',
                             'text-danger': notification.etat === 'refusé',
-                           
+                            'text-dark': notification.etat === 'refusé'
                         }">
                             {{ notification.etat === 'en attente' ? 'en attente' : (notification.etat === 'accepté' ? 'accepté' : 'refusé') }}
                             <i *ngIf="notification.etat === 'en attente'" class="fa fa-spinner w3-spin" style="font-size:18px; margin-left: 5px;"></i>
@@ -149,27 +150,24 @@
                             <a *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="refuserDemande(notification)">
                                 <i class="fa fa-close"></i>
                             </a>
-                            <a *ngIf="authService.isAdmin()" 
-   class="btn btn-warning" 
-   [routerLink]="['/addConge', { 
-      
-       typeConge: notification.type, 
-       dateDebut: notification.dateDebut, 
-       dateFin: notification.dateFin, 
-       dateDemande: notification.dateDemande, 
-       nom: notification.personnel?.nom, 
-       prenom: notification.personnel?.prenom, 
-       numCin: notification.personnel?.numCin 
-   }]">
-   <i class="fa fa-edit"></i>
-</a>
+                             <a *ngIf="authService.isAdmin()" class="btn btn-warning" [routerLink]="['/', notification.type === 'Congé' ? 'addConge' : notification.type === 'Absence' ? 'addAbsence' : 'addPret']">
+                                <i class="fa fa-edit"></i>
+                            </a> 
+
+                            <div *ngIf="authService.isAdmin()" class="seen-icon-container">
+                                <i class="fa fa-check check-icon" *ngIf="notification.lu">Vu</i>
+                            </div>
 
                             <a *ngIf="authService.isUserOnly()" class="btn btn-danger" (click)="supprimerNotification(notification)">
                                 Supprimer <i class="bi bi-trash"></i>
                             </a>
-                            <a *ngIf="authService.isUserOnly()" class="btn btn-warning" [routerLink]="['/updateNotification', notification.idNotification]">
+                            <!-- <a *ngIf="authService.isUserOnly()" class="btn btn-warning" [routerLink]="['/updateNotification', notification.idNotification]">
                                 Modifier <i class="bi bi-pencil-square"></i>
-                            </a>
+                            </a> -->
+                            <a *ngIf="authService.isUserOnly()" class="btn btn-primary custom-button" 
+                            [ngClass]="{ 'clicked': notification.lu }" (click)="markAsRead($event, notification)">
+                            <i class="fa fa-eye eye-icon" *ngIf="notification.lu"></i>
+                         </a>
                         </td>
                     
                 </tr>
@@ -201,20 +199,20 @@
                     <td>{{ notification.type }}</td>
                     <td>{{ notification.dateDemande | date: 'dd/MM/yyyy' }}</td>
                     <td>{{ notification.montant }}</td>
-                    <td>{{ notification.dateRemise  | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{ notification.dateRemise | date: 'dd/MM/yyyy' }}</td>
                     <td>
                         <span [ngClass]="{
                             'blinking-red': notification.etat === 'en attente',
                             'text-success': notification.etat === 'accepté',
                             'text-danger': notification.etat === 'refusé',
-                           
+                            'text-dark': notification.etat === 'refusé'
                         }">
                             {{ notification.etat === 'en attente' ? 'en attente' : (notification.etat === 'accepté' ? 'accepté' : 'refusé') }}
                             <i *ngIf="notification.etat === 'en attente'" class="fa fa-spinner w3-spin" style="font-size:18px; margin-left: 5px;"></i>
                         </span>
                     </td>
 
-                
+                    <!-- Actions (affichées uniquement pour les administrateurs) -->
                     
                         <td>
                             <a *ngIf="authService.isAdmin()" class="btn btn-primary" (click)="approuverDemande(notification)">
@@ -223,18 +221,24 @@
                             <a *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="refuserDemande(notification)">
                                 <i class="fa fa-close"></i>
                             </a>
-                            <a *ngIf="authService.isAdmin()" class="btn btn-warning" 
-                            [routerLink]="['/', notification.type.toLowerCase() === 'congé' ? 'addConge' : notification.type.toLowerCase() === 'absence' ? 'addAbsence' : 'addPret']">
-                            <i class="fa fa-edit"></i>
-                         </a>
-                         
+                            <a *ngIf="authService.isAdmin()" class="btn btn-warning" [routerLink]="['/', notification.type === 'Congé' ? 'addConge' : notification.type === 'Absence' ? 'addAbsence' : 'addPret']">
+                                <i class="fa fa-edit"></i>
+                            </a>
 
+                            <div *ngIf="authService.isAdmin()" class="seen-icon-container">
+                                <i class="fa fa-check check-icon" *ngIf="notification.lu">Vu</i>
+                            </div>
+                            
                             <a *ngIf="authService.isUserOnly()" class="btn btn-danger" (click)="supprimerNotification(notification)">
                                 Supprimer <i class="bi bi-trash"></i>
                             </a>
-                            <!-- <a *ngIf="authService.isUserOnly()" class="btn btn-warning" [routerLink]="['/updateNotification', notification.idNotification]">
+                           <!--  <a *ngIf="authService.isUserOnly()" class="btn btn-warning" [routerLink]="['/updateNotification', notification.idNotification]">
                                 Modifier <i class="bi bi-pencil-square"></i>
                             </a> -->
+                            <a *ngIf="authService.isUserOnly()" class="btn btn-primary custom-button" 
+                            [ngClass]="{ 'clicked': notification.lu }" (click)="markAsRead($event, notification)">
+                            <i class="fa fa-eye eye-icon" *ngIf="notification.lu"></i>
+                         </a>
                         </td>
                   
                 </tr>

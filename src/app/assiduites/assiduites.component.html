@@ -2,7 +2,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.19.0/font/bootstrap-icons.css" rel="stylesheet">
 <div class="container">
     <div class="mb-4">
-        <h2>Liste des assiduite</h2>
+        <h2>Liste des assiduités</h2>
         <a *ngIf="authService.isAdmin()" type="button" class="btn btn-primary" routerLink="/addAssiduite">Ajouter un Assiduite</a>
     </div>
     <div class="card shadow">
@@ -22,7 +22,7 @@
                     <tbody>
                         <tr *ngFor="let assiduite of assiduites">
                             <td>{{ assiduite.idAssiduite }}</td>
-                            <td>{{ assiduite.nbHeures }}</td>
+                            <td>{{ 160- assiduite.totalAbsences }}</td>
                             <td>{{ assiduite.heuresSupp }}</td>
                             <td>{{assiduite.totalAbsences}}</td>
                             <td>
@@ -31,12 +31,12 @@
                                 </a>
                             </td>
                          
-                            <td><a *ngIf="authService.isAdmin()" class="btn btn-warning" [routerLink]="['/updateAssiduite',assiduite.idAssiduite]"> modifier
+                            <td><a *ngIf="authService.isAdmin() || authService.isResponsable()" class="btn btn-warning" [routerLink]="['/updateAssiduite',assiduite.idAssiduite]"> 
                                 <i class="bi bi-pencil-square"></i></a>
                             </td>
                             <td>
                                 <a *ngIf="authService.isAdmin()" class="btn btn-danger"
-                             (click)="supprimerAssiduite(assiduite)">supprimer
+                             (click)="supprimerAssiduite(assiduite)">
                              <i class="bi bi-trash"></i>
                            </a>
                            </td> 

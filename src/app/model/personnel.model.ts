@@ -5,17 +5,12 @@ import { Contrat } from './contrat.model';
 import { Departement } from './departement.model';
 import { Messagerie } from './messagerie';
 import { Pret } from './pret.model';
-export class Personnel {
-    id! : number;
-	nom! : String;
-	prenom! : String;
-	dateNaissance! : Date;
-	email! : String;
-	numTelephone! : number;
+import { Utilisateur } from './utilisateur.model';
+export class Personnel  extends Utilisateur{
 	numCin! : String;
-	adresse! : String;
 	sexe! :String ;
 	fonction! :String ;
+	username! : String; 
 	departement!: Departement;
 	conge!:Conge;
 	pret!:Pret;
@@ -24,4 +19,5 @@ export class Personnel {
 	notification!:Notification;
 	messagerie!:Messagerie;
 	absence!:Absence;
+	
 }

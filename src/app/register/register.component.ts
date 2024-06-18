@@ -26,22 +26,28 @@ export class RegisterComponent implements OnInit {
   }
   onRegister(){
       
-console.log(this.user);
-this.loading=true;
-this.authService.registerUser(this.user).subscribe({
-next:(res)=>{
-  //////verifyEmail 148
-  this. authService.setRegistredUser(this.user);
-  alert("veillez confirmer votre email");
-  this.router.navigate(["/verifEmail"]);  
-},
-error: (err: any) => {
-  if (err.error.errorCode === "USER_EMAIL_ALREADY_EXISTS") {
-    this.err = "email already used";
-  }
-}
-}
-)
-}
-
-}
+    console.log(this.user);
+    this.loading=true;
+    this.authService.registerUser(this.user).subscribe({
+    next:(res)=>{
+      //////verifyEmail 148
+      this. authService.setRegistredUser(this.user);
+      alert("veillez confirmer votre email");
+      this.router.navigate(["/verifEmail"]);  
+    },
+    error: (err: any) => {
+      if (err.status === 403) {
+        // Gestion de l'erreur 403 Forbidden
+        this.err = "Vous n'avez pas la permission d'effectuer cette action.";
+      } else if (err.status === 400 && err.error && err.error.errorCode) {
+        // Vérification de la présence de la propriété errorCode
+        this.err = err.error.errorCode;
+      } else {
+        // Gestion d'autres erreurs
+        this.err = "Une erreur inattendue s'est produite.";
+      }
+    }
+    
+    }
+    )
+  }}    

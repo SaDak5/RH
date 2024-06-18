@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PersonnelService } from '../services/Personnel.Service';
 import { Personnel } from '../model/personnel.model';
 
@@ -14,23 +14,35 @@ import { Personnel } from '../model/personnel.model';
 export class ProfilPersonnelComponent implements OnInit {
 
   
-personnel!:any;
-personnels!:Personnel[];
-
-constructor( private route: ActivatedRoute,
-  private personnelService: PersonnelService){
-    
-  }
-ngOnInit(): void {
-
-  this.route.params.subscribe(params => {
-    const idPersonnel = +params['idPersonnel']; // Convertir le paramètre en nombre
-    this.personnelService.getPersonnelById(idPersonnel).subscribe(personnel => {
-      this.personnel = personnel;
+  personnel:any;
+  personnels: any;
+  
+  constructor( private route: ActivatedRoute,  private router : Router,
+    private personnelService: PersonnelService){}
+  
+    modifierPersonnel(idPersonnel: number) {
+      this.router.navigate(['/updatePersonnel', idPersonnel]);
+    }
+  
+    supprimerPersonnel(p: Personnel) { 
+      let conf = confirm("Etes-vous sûr ?");
+      if (conf) this.personnelService.supprimerPersonnel(p.id).subscribe(() => {
+        console.log("personnel supprimé"); 
+        this.router.navigate(['/users']);
+      }); 
+       
+      }
+  ngOnInit(): void {
+  
+    this.route.params.subscribe(params => {
+      const idPersonnel = +params['idPersonnel']; // Convertir le paramètre en nombre
+      this.personnelService.getPersonnelById(idPersonnel).subscribe(personnel => {
+        this.personnel = personnel;
+      });
     });
-  });
-}
-
-
-
-}
+  }
+  
+    
+  
+  
+  }

@@ -6,6 +6,7 @@ import { Personnel } from "./personnel.model";
 	dateFin! : Date;
 	dateDemande! : Date ;
     etat!:String;
+    username! : String;
     personnel!: Personnel;
     notification!:Notification;
     }

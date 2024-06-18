@@ -14,6 +14,8 @@ export class Notification {
     dateRemise!:Date;
     type! : string;
     excuse!:String;
+    username! : String;
+    lu! : boolean;
     personnel!:Personnel;
     absence!:Absence;
     pret: Pret = new Pret();

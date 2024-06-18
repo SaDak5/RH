@@ -4,13 +4,86 @@
 <title>Google Icons</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+   body {
+        background-color: #5aa7ba; /* Changer la couleur de fond en bleu */
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+    .message-text {
+    font-size: 18px; /* Modifier la taille de police selon vos préférences */
+}
+
+    .container {
+        padding: 20px;
+    }
+    /* Style pour les publications */
+    .message-container {
+        background-color: #f5f5f5;
+        border-radius: 10px;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+        font-size: 16px; /* Taille de police pour les publications */
+        max-width: 500px; /* Limite la largeur maximale des publications */
+        min-height: 10vh;
+    }
+    /* Style pour les commentaires */
+    .comment-container {
+        margin-left: 20px; /* Pour l'espacement entre les commentaires et les publications */
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0px 1px 2px rgba(156, 47, 47, 0.1);
+        padding: 5px;
+        margin-bottom: 10px;
+        font-size: 16px; /* Taille de police pour les commentaires, plus petite que celle des publications */
+        max-width: 400px; /* Limite la largeur maximale des commentaires */
+        word-wrap: break-word; /* Permet de diviser les mots longs pour qu'ils s'ajustent à la largeur */
+    }
+    .date-text {
+        font-size: 14.5px; /* Modifier la taille de police selon vos préférences */
+    }
+
+    /* Style pour les bulles de conversation */
+    .bubble-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+        z-index: 9999; /* Pour s'assurer que les bulles sont au-dessus de tout le reste */
+    }
+
+    .bubble {
+        background-color: #f5f5f5;
+        color: #000;
+        padding: 10px 20px;
+        border-radius: 20px;
+        max-width: 70%;
+        margin-bottom: 10px;
+    }
+
+    .bubble.right {
+        align-self: flex-end;
+    }
+</style>
 </head>
 <body>
+    <div class="bubble-container">
+        <div class="bubble ">Hello!</div>
+        <div class="bubble ">Hi there!</div>
+    </div>
+    <br>
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="mb-0">List of Messages</h2>
+            <h2 class="mb-0">plannification et interaction</h2>
             <button *ngIf="authService.isAdmin()" class="btn btn-primary" routerLink="/addPublication">
-                <i class="fa fa-plus"></i> Add Message
+                <i class="fa fa-plus"></i> Add Publication
             </button>
         </div>
 
@@ -52,7 +125,7 @@
                                     <p class="card-text comment-text">{{ commentaire.commentaire }}</p>
                                     <p class="card-text"><small class="text-muted">{{ getTimeDifference(commentaire.dateAjout) }}</small></p>
                                 </div>
-                                <button *ngIf="authService.isAdmin()" class="btn btn-danger btn-sm ms-2" (click)="deleteCommentaire(commentaire)">
+                                <button  class="btn btn-danger btn-sm ms-2" (click)="deleteCommentaire(commentaire)">
                                     Delete <i class="fa fa-trash"></i>
                                 </button>
                             </div>

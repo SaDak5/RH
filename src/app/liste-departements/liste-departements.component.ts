@@ -9,47 +9,46 @@ import { AuthService } from '../services/auth.Service';
   templateUrl: './liste-departements.component.html',
   styleUrls: ['./liste-departements.component.css']
 })
-export class ListeDepartementsComponent implements OnInit{
+export class ListeDepartementsComponent implements OnInit {
 
-  departements! : Departement[];
+  departements: Departement[] = [];
+  allDepartements: Departement[] = [];
+  searchTerm: string = '';
 
-  allDepartements! : Departement[];
-  searchTerm!: string;
-
-  constructor(private personnelService : PersonnelService,
-             private router : Router, public authService : AuthService){}
-
-
-  chargerDepartements(){
-    this.personnelService.listeDepartements().subscribe(deps => {
-      console.log(deps);
-      this.departements = deps;
-              });
-            }
-
-  supprimerDepartement(dep: Departement) { 
-    let conf = confirm("Etes-vous sûr ?");
-    if (conf) this.personnelService.supprimerDepartement(dep.idDep).subscribe(() => {
-      console.log("departement supprimé"); this.chargerDepartements(); }); 
-    }
-
-
-  modifierDepartement(idDep: number) {
-      this.router.navigate(['/updateDepartement', idDep]);
-    }
-
-
-  onKeyUp(filterText : string){ ////onkeyup
-    this.departements = this.allDepartements.filter(item => 
-     item.nomDep.toLowerCase().includes(filterText));
-    }
+  constructor(
+    private personnelService: PersonnelService,
+    private router: Router,
+    public authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    this.personnelService.listeDepartements().
-     subscribe(deps => {
-      this.departements = deps;
-       console.log(deps); });
-    
+    this.chargerDepartements();
   }
 
+  chargerDepartements() {
+    this.personnelService.listeDepartements().subscribe(deps => {
+      this.departements = deps;
+      this.allDepartements = [...deps]; // Copy the departments to allDepartments
+    });
+  }
+
+  supprimerDepartement(dep: Departement) {
+    let conf = confirm("Etes-vous sûr ?");
+    if (conf) {
+      this.personnelService.supprimerDepartement(dep.idDep).subscribe(() => {
+        console.log("departement supprimé");
+        this.chargerDepartements();
+      });
+    }
+  }
+
+  modifierDepartement(idDep: number) {
+    this.router.navigate(['/updateDepartement', idDep]);
+  }
+
+  onKeyUp(filterText: string) {
+    this.departements = this.allDepartements.filter(item =>
+      item.nomDep.toLowerCase().includes(filterText.toLowerCase())
+    );
+  }
 }

@@ -24,6 +24,8 @@ public isloggedIn: Boolean = false;
 public roles!:string[];
 ////// ta3ml biha verifMail bch twli enable=1
 public regitredUser : User = new User();
+private jwtHelper = new JwtHelperService();
+
 constructor(private router: Router,private http:HttpClient) { }
 
 
@@ -80,8 +82,21 @@ saveToken(jwt:string){
      return this.roles.indexOf('RESPONSABLE') >=0;
      return this.roles.includes('RESPONSABLE');
      }
-  
-  
+  ///tkhabi username f localstorage//
+     getUserName(): string | null {
+      const jwt = localStorage.getItem('jwt');
+      if (jwt) {
+        const decodedToken = this.jwtHelper.decodeToken(jwt);
+        return decodedToken.sub;
+      }
+      return null;
+    }
+        decodeJWT(): void {
+          if (this.token) {
+            const decodedToken = this.jwtHelper.decodeToken(this.token);
+            this.roles = decodedToken.roles || []; // décompresse le JWT pour obtenir les rôles
+          }
+        }
 
    logout() {
     this.loggedUser = undefined!;
@@ -101,14 +116,14 @@ saveToken(jwt:string){
     getToken():string {
       return this.token;
       }
-      decodeJWT()
-{ if (this.token == undefined)
- return;
-const decodedToken = this.helper.decodeToken(this.token);
-this.roles = decodedToken.roles;
-console.log("roles"+this.roles);
-this.loggedUser = decodedToken.sub;
-}
+//       decodeJWT()
+// { if (this.token == undefined)
+//  return;
+// const decodedToken = this.helper.decodeToken(this.token);
+// this.roles = decodedToken.roles;
+// console.log("roles"+this.roles);
+// this.loggedUser = decodedToken.sub;
+// }
    /*
    getUserRoles(username :string){
      this.users.forEach((curUser) => {
@@ -137,5 +152,13 @@ this.loggedUser = decodedToken.sub;
           validateEmail(code : string){
             return this.http.get<User>(this.apiURL+'/verifyEmail/'+code);
             }
-            
+            getRole(): string {
+              if (this.isAdmin()) {
+                return 'ADMIN';
+              } else if (this.isResponsable()) {
+                return 'RESPONSABLE';
+              }
+              return '';
+            }
+          
 }

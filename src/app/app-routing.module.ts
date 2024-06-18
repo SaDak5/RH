@@ -39,6 +39,20 @@ import { UpadateNotificationComponent } from './upadate-notification/upadate-not
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PublicationComponent } from './publication/publication.component';
 import { AddPublicationComponent } from './add-publication/add-publication.component';
+import { EditProfilComponent } from './edit-profil/edit-profil.component';
+import { EditProfilRespComponent } from './edit-profil-resp/edit-profil-resp.component';
+import { EditProfilAdminComponent } from './edit-profil-admin/edit-profil-admin.component';
+import { ResponsableComponent } from './responsable/responsable.component';
+import { AdminComponent } from './admin/admin.component';
+import { PersonnelAssiduiteDataComponent } from './personnel-assiduite-data/personnel-assiduite-data.component';
+import { PersonnelDocDataComponent } from './personnel-doc-data/personnel-doc-data.component';
+import { PersonnelCongeDataComponent } from './personnel-conge-data/personnel-conge-data.component';
+import { PersonnelDataComponent } from './personnel-data/personnel-data.component';
+import { PersonnelPretDataComponent } from './personnel-pret-data/personnel-pret-data.component';
+import { PersonnelContratDataComponent } from './personnel-contrat-data/personnel-contrat-data.component';
+import { UpdateAdminComponent } from './update-admin/update-admin.component';
+import { UsersComponent } from './users/users.component';
+import { ProfilAdministrateurComponent } from './profil-administrateur/profil-administrateur.component';
 
 
 const routes: Routes = [
@@ -85,11 +99,27 @@ const routes: Routes = [
   {path: 'publication', component: PublicationComponent},
   {path: "addPublication", component : AddPublicationComponent},
  
- 
-  
   //{ path: 'addDemandePret', component: AddDemandePretComponent },
   {path:'dashboard', component: DashboardComponent },
-  {path: "", redirectTo: "sidebar", pathMatch: "full" }
+  {path: "", redirectTo: "sidebar", pathMatch: "full" },
+
+
+
+  {path:'editProfil' , component: EditProfilComponent},
+  {path:'editProfilResp', component:EditProfilRespComponent},
+  {path:'editProfilAdmin' , component: EditProfilAdminComponent},
+  {path: "responsable", component: ResponsableComponent},
+  {path: "admin", component: AdminComponent},
+  {path:'user-data' , component: PersonnelDataComponent},
+  {path:'userConge-data' , component: PersonnelCongeDataComponent},
+  {path:'userPret-data' , component: PersonnelPretDataComponent},
+  {path:'userDoc-data' , component: PersonnelDocDataComponent},
+  {path:'userContrat-data' , component: PersonnelContratDataComponent},
+  {path:'userAssiduite-data' , component: PersonnelAssiduiteDataComponent},
+  {path:'updateAdmin/:id' , component: UpdateAdminComponent},
+  {path: "users", component : UsersComponent},
+  {path: "profilAdmin/:idAdmin", component:ProfilAdministrateurComponent},
+  {path:'updateAdmin/:id' , component: UpdateAdminComponent}
 ];
 
 @NgModule({

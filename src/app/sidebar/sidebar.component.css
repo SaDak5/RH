@@ -358,20 +358,3 @@ body, html {
 .notification-icon {
   margin-bottom: 10px; /* Espacement entre les icônes */
 }
-
-/* Dans votre fichier sidebar.component.css */
-.text-green {
-  color: green;
-}
-
-.text-red {
-  color: rgb(218, 38, 38);
-}
-
-.notification-icon a[title] {
-  font-size: 20px; /* Taille de police initiale */
-}
-
-.notification-icon a[title]:hover {
-  font-size: 24px; /* Taille de police lorsque survolé */
-}

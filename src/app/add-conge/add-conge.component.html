@@ -1,37 +1,57 @@
 <app-navbar></app-navbar>
+<div class="container">
+  <div>
+      <h2>Ajouter un Conge :</h2>
+  </div>
 <form>
 
-  <div [hidden]="true">
-    <label for="idConge" class="form-label">id Conge</label> 
-    <input [(ngModel)]="newConge.idConge" name="idConge" class="form-control w-25">
+  <div hidden >
+      <label for="idConge" class="form-label">id Conge</label> 
+      <input [(ngModel)]="newConge.idConge" name="idConge"
+          class="form-control w-25">
   </div>
-  <br />
 
   <div>
-    <label for="typeConge" class="form-label">Type Conge</label> 
-    <input type="text" [(ngModel)]="newConge.typeConge" name="typeConge" class="form-control" placeholder="Entrez un type...">
+      <label for="typeConge" class="form-label">type Conge</label> 
+      <input type="text" [(ngModel)]="newConge.typeConge" name="typeConge" class="form-control"
+          placeholder="Entrez un type..." required #typeCongeField="ngModel">
+      <div *ngIf="typeCongeField?.invalid && (typeCongeField?.dirty || typeCongeField?.touched)" class="text-danger">
+      <div *ngIf="typeCongeField?.errors?.['required']">Nom requis.</div>
+      <div *ngIf="typeCongeField?.errors?.['typeConge'] && !typeCongeField?.errors?.['required']"></div>
+      </div>
   </div>
-  <br />
+
+   <div >
+      <label for="dateDebut" class="form-label">date Debut</label> 
+      <input type="date" [(ngModel)]="newConge.dateDebut" name="dateDebut"
+          class="form-control " placeholder="Entrez un date...">
+  </div>
 
   <div>
-    <label for="dateDebut" class="form-label">Date Debut</label> 
-    <input type="date" [(ngModel)]="newConge.dateDebut" name="dateDebut" class="form-control" placeholder="Entrez une date...">
+  <label for="dateFin" class="form-label" >date Fin</label> 
+  <input type="date" [(ngModel)]="newConge.dateFin" name="dateFin"
+      class="form-control" placeholder="Entrez un type...">
   </div>
-  <br />
+
+
+  <!-- <div>
+  <label for="justifConge" class="form-label" >Justification de  Conge</label> 
+  <input type="text" [(ngModel)]="newConge.justifConge" name="justifConge"class="form-control" 
+      placeholder="Entrez un type..." required #justifCongeField="ngModel">
+      <div *ngIf="justifCongeField?.invalid && (justifCongeField?.dirty || justifCongeField?.touched)" class="text-danger">
+      <div *ngIf="justifCongeField?.errors?.['required']">Nom requis.</div>
+      <div *ngIf="justifCongeField?.errors?.['justifConge'] && !justifCongeField?.errors?.['required']"></div>
+      </div>
+  </div> -->
+
 
   <div>
-    <label for="dateFin" class="form-label">Date Fin</label> 
-    <input type="date" [(ngModel)]="newConge.dateFin" name="dateFin" class="form-control" placeholder="Entrez une date...">
+  <label for="DateDemande" class="form-label" >date Demande</label> 
+  <input type="date" [(ngModel)]="newConge.dateDemande" name="DateDemande"
+      class="form-control" placeholder="Entrez un type...">
   </div>
-  <br />
 
-  <div>
-    <label for="dateDemande" class="form-label">Date Demande</label> 
-    <input type="date" [(ngModel)]="newConge.dateDemande" name="dateDemande" class="form-control" placeholder="Entrez une date...">
-  </div>
-  <br />
-
-  <div class="col-sm-4 col-md-4 col-lg-4">
+  <div >
     <label>Personnel correspondant</label>
     <select class="form-control form-control-lg" id="idConge" name="idConge" [(ngModel)]="selectedPersonnel">
       <option *ngFor="let personnel of personnels" [ngValue]="personnel">
@@ -39,8 +59,13 @@
       </option>
     </select>
   </div>
+  <div class="form-group">
+    <label>Username</label>
+    <input type="text" [(ngModel)]="newConge.username" name="username" class="form-control">
+</div>
+
 
   <div class="mt-4">
-    <button type="submit" (click)="addConge()" class="btn btn-success mb-2">Ajouter</button>
-  </div>
-</form>
+      <button type="submit" (click)="addConge()" class="btn btn-success mb-2">Ajouter</button>
+    </div>
+</form> 

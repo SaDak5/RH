@@ -7,6 +7,7 @@ export class Assiduite {
     nbHeures! : number;
     totalAbsences!:number;
     absence!:Absence;
+    username! : String;
     personnel!:Personnel;
 
     }

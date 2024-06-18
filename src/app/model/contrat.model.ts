@@ -7,6 +7,7 @@ export class Contrat {
     dateSignature!:Date;
     nomSociete!:string;
     salaire!:number;
+    username! : String;
     personnel!:Personnel;
  
 

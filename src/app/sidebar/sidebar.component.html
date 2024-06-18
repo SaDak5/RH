@@ -19,77 +19,72 @@
       <i class="bx bx-menu" id="btn"></i>
     </div>
     <ul class="nav-list">
-
-      
-      
-    
-    
-       <li>
+      <li>
         <i class="bx bx-search"></i>
-        <input type="text" placeholder="">
-         <span class="tooltip">Search</span>
-      </li> 
-      <li *ngIf="authService.isAdmin()">
+        <input type="text" [(ngModel)]="searchTerm" (input)="filterItems()" placeholder="">
+        <span class="tooltip">Search</span>
+      </li>
+      <li *ngIf="filteredItems.includes('dashboard') && authService.isAdmin()"> 
         <a routerLink="/dashboard">
-            <i class="bx bx-grid-alt"></i>
-            <span class="link_name">Dashboard</span>
+          <i  class="bx bx-grid-alt"></i>
+          <span class="link_name">Dashboard</span>
         </a>
         <span class="tooltip">Dashboard</span>
-    </li>
-    
-      <li>
-        <a href="#">
+      </li>
+      <li *ngIf="filteredItems.includes('profile')">
+        <a (click)="redirectToProfile()">
+          <i class="bx bx-user-circle"></i>
+          <span class="link_name">Profil</span>
+        </a>
+        <span class="tooltip">Profil</span>
+      </li>
+      <li *ngIf="filteredItems.includes('users') && authService.isResponsable()">  
+        <a routerLink="/users">
           <i class="bx bx-user"></i>
           <span class="link_name">User</span>
         </a>
-        <span class="tooltip">User</span>
+        <span class="tooltip">Utilisateurs</span>  
       </li>
-      <li>
-        <a routerLink="/messagerie">
-          <i class="bx bx-chat"  *ngIf=" this.nombreMessages> 0 && authService.isUserOnly()" ></i>
-          <span class="link_name">Message</span>
+      <li *ngIf="filteredItems.includes('publication') && authService.isAdmin()">
+        <a routerLink="/publication">
+          <i class="bx bx-message-square"></i>
+          <span class="link_name">Publication</span>
         </a>
-        <span class="tooltip">Message</span>
-      </li>
-      <li>
-        <a href="#">
-          <i class="bx bx-pie-chart-alt-2"></i>
-          <span class="link_name">Analytics</span>
-        </a>
-        <span class="tooltip">Analytics</span>
-      </li>
-      <li>
+        <span class="tooltip">Publication</span>
+      </li>       
+      <li *ngIf="filteredItems.includes('notifications') && authService.isAdmin()">
         <a routerLink="/notification">
-          <i class="bx bx-folder"></i>
-          <span class="link_name">File Manger</span>
+          <i class="bx bx-bell"></i>
+          <span class="link_name">Notifications</span>
         </a>
-        <span class="tooltip">File Manger</span>
+        <span class="tooltip">Notifications</span>
       </li>
-      <li>
-        <a href="#">
+      <li *ngIf="filteredItems.includes('order')">
+        <a routerLink="/order">
           <i class="bx bx-cart-alt"></i>
           <span class="link_name">Order</span>
         </a>
         <span class="tooltip">Order</span>
       </li>
-      <li>
-        <a href="#">
+      <li *ngIf="filteredItems.includes('settings')">
+        <a routerLink="/settings">
           <i class="bx bx-cog"></i>
           <span class="link_name">Settings</span>
         </a>
         <span class="tooltip">Settings</span>
       </li>
-       <li class="profile">
+      <li class="profile">
         <div class="profile_details">
           <div class="profile_content">
           </div>
         </div>
-        <i class="bx bx-log-out" routerLink="/login"id="log_out"></i>
+        <i class="bx bx-log-out" routerLink="/login" id="log_out"></i>
       </li>
     </ul>
   </div>
+
   <section class="home-section">
-    <div class="text">Dashboard</div>
+    <div class="text">Menu principal</div>
 
     <div class="card-container">
       <div class="card-group">
@@ -114,20 +109,7 @@
               <span class="notification-badge">{{ nombreNotificationsConge }}</span>
             </a>
           </div>
-       <!-- Dans votre fichier sidebar.component.html -->
-                 <div class="notification-icon" *ngIf="nombreNotificationsAccepte > 0 && authService.isUserOnly()"> 
-                   <a (click)="showNotification()" routerLink="/notification" class="btn btn-link" title="Notifications acceptées">
-                     <i class="material-icons" style="font-size:38px;color:green">check_circle</i>
-                     <span class="notification-badge text-green">{{ nombreNotificationsAccepte }}</span>
-                  </a>
-                  </div>
-
-                 <div class="notification-icon" *ngIf="nombreNotificationsRefuse > 0 && authService.isUserOnly()"> 
-                   <a (click)="showNotification()" routerLink="/notification" class="btn btn-link" title="Notifications refusées">
-                      <i class="material-icons" style="font-size:38px;color:rgb(218, 38, 38)">cancel</i>
-                      <span class="notification-badge text-red">{{ nombreNotificationsRefuse }}</span>
-                   </a>
-                  </div>
+       
 
 
                   <!-- <div class="notification-icon" *ngIf="nombreMessages > 0 && authService.isUserOnly()">
@@ -144,7 +126,7 @@
           <div class="card">
             <img src="/assets/personnel.png" alt="personnel">
             <div class="card-body">
-              <h3>Personnel</h3>
+              <h3>Personnels</h3>
               <p></p>
             </div>
           </div>
@@ -155,7 +137,7 @@
       <div class="card"  >
         <img src="/assets/adminstration.png" alt="assiduite">
         <div class="card-body">
-          <h4>Assiduite</h4>
+          <h4>Assiduités</h4>
           <p></p>
         </div>
     </div>
@@ -169,7 +151,7 @@
       <div class="card">
         <img src="/assets/departement.png" alt="departement">
         <div class="card-body">
-          <h3>Departement</h3>
+          <h3>Departements</h3>
           <p></p>
         </div>
       </div>
@@ -180,7 +162,7 @@
       <div class="card">
         <img src="/assets/absence.png" alt="absence">
         <div class="card-body">
-          <h3>Absence</h3>
+          <h3>Absences</h3>
           <p></p>
         </div>
       </div>
@@ -193,7 +175,7 @@
       <div class="card">
         <img src="/assets/congé.png" alt="conge">
         <div class="card-body">
-          <h3>Conge</h3>
+          <h3>Congés</h3>
           <br>
           <p></p>
         </div>
@@ -205,7 +187,7 @@
       <div class="card">
         <img src="/assets/contrat.png" alt="contrat">
         <div class="card-body">
-          <h3>Contrat</h3>
+          <h3>Contrats</h3>
           <br>
           <p></p>
         </div>
@@ -217,7 +199,7 @@
       <div class="card">
         <img src="/assets/pret.png" alt="pret">
         <div class="card-body">
-          <h3>Pret</h3>
+          <h3>Prets</h3>
           <br>
           <p></p>
         </div>
@@ -235,7 +217,7 @@
       </div>
     </a>
   <br/>
-    <a routerLink="/notification" target="_blank">
+    <!-- <a routerLink="/notification" target="_blank">
       <div class="card">
         <img src="/assets/main.png" alt="notification">
         <div class="card-body">
@@ -244,7 +226,7 @@
           <p></p>
         </div>
       </div>
-    </a>
+    </a> -->
    
 
     </div>

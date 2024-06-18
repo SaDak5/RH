@@ -50,6 +50,6 @@ export class AddContratComponent implements OnInit {
     const dateEmbauche = new Date(this.newContrat.dateEmbauche);
     const dateSignature = new Date(this.newContrat.dateSignature);
   
-    return dateEmbauche < dateSignature;
+    return dateSignature<dateEmbauche  ;
   }
 }

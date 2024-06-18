@@ -22,7 +22,7 @@
                                 {{ document.personnel?.nom }} {{ document.personnel?.prenom + ' - ' + document.personnel?.numCin}}
                             </a>
                         </td>
-                        <td><a  *ngIf="authService.isAdmin()" class="btn btn-warning" [routerLink]="['/updateDocument',document.idDocument]"> <i class="bi bi-pencil-square"></i></a></td>
+                        <td><a  *ngIf="authService.isAdmin() || authService.isResponsable()" class="btn btn-warning" [routerLink]="['/updateDocument',document.idDocument]"> <i class="bi bi-pencil-square"></i></a></td>
                         <td><a *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="supprimerDocument(document)"><i class="bi bi-trash"></i></a></td>
                            </tr>
                 </tbody>

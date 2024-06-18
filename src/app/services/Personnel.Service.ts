@@ -14,6 +14,9 @@ import { AuthService } from './auth.Service';
 
 import { Commentaire } from '../model/commentaire.model';
 import { Publication } from '../model/publication.model';
+import { Admin } from '../model/admin.model';
+import { Responsable } from '../model/responsable.model';
+import { forkJoin, map } from 'rxjs';
 
 const httpOptions = {
     headers: new HttpHeaders( {'Content-Type': 'application/json'} )
@@ -22,10 +25,10 @@ const httpOptions = {
     providedIn: 'root'
   })
   export class PersonnelService{
-    apiURLAs: string = 'http://localhost:8088/ressourcesH/api';
-    apiURLAb: string = 'http://localhost:8088/ressourcesH/api/abs';
-    apiURLDoc: string = 'http://localhost:8088/ressourcesH/api/documents';
-    apiURLCon: string = 'http://localhost:8088/ressourcesH/api/contrat';
+    apiURLAs= 'http://localhost:8088/ressourcesH/api';
+    apiURLAb = 'http://localhost:8088/ressourcesH/api/abs';
+    apiURLDoc= 'http://localhost:8088/ressourcesH/api/documents';
+    apiURLCon='http://localhost:8088/ressourcesH/api/contrat';
     baseUrl="http://localhost:8088/ressourcesH/api";
     apiURL="http://localhost:8088/ressourcesH/api/departements";
     apiURLCong="http://localhost:8088/ressourcesH/api/conge";
@@ -33,6 +36,10 @@ const httpOptions = {
     apiNOT="http://localhost:8088/ressourcesH/api/notification"
     apiMess="http://localhost:8088/ressourcesH/api"
     apiComment="http://localhost:8088/ressourcesH/api/commentaire"
+
+    apiResponsable="http://localhost:8088/ressourcesH/api/Responsable";
+    apiAdmin="http://localhost:8088/ressourcesH/api/Admin";
+   
     assiduites!: Assiduite[]; //un tableau de Assiduite
     absences!:Absence[]; //un tableau d'absence'
     documents!:Document[] //un tableau de document
@@ -44,7 +51,7 @@ const httpOptions = {
      conges!:Conge[];
     publications!:Publication[] //un tableau;
      commentaires!:Commentaire[];
-    constructor(private http: HttpClient,private authService: AuthService) {}
+    constructor(private http: HttpClient,private authService: AuthService,) {}
   
     listeAssiduite(): Observable<Assiduite[]>{
       let jwt = this.authService.getToken();
@@ -440,5 +447,175 @@ const httpOptions = {
             let httpHeaders = new HttpHeaders({ "Authorization": jwt });
             return this.http.get<Commentaire[]>(`${this.apiMess}/tousCommentaires/${publicationId}`, { headers: httpHeaders });
         }
+        ////// 1juin ////////////////
+        getdocData(): Observable<any> {
+          const token = this.authService.getToken();
+          if (!token) {
+            throw new Error('No token found.');
+          }
+          const headers = new HttpHeaders({
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          });
+          return this.http.get<any>(`${this. apiURLDoc}/data`, { headers });
+        }
+        getAdminData(): Observable<any> {
+          const token = this.authService.getToken();
+          if (!token) {
+            throw new Error('No token found.');
+          }
+          const headers = new HttpHeaders({
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          });
+          return this.http.get<any>(`${this.apiAdmin}/data`, { headers });
+        }
+        updateAdmin( admin: Admin):Observable<Admin>{
+          let jwt = this.authService.getToken();
+          jwt = "Bearer "+jwt;
+          let httpHeaders = new HttpHeaders({"Authorization":jwt})
+          return this.http.put<Admin>(this.apiAdmin+"/update", admin, {headers:httpHeaders}); 
+          }
+          updateResponsable( resp: Responsable):Observable<Responsable>{
+            let jwt = this.authService.getToken();
+            jwt = "Bearer "+jwt;
+            let httpHeaders = new HttpHeaders({"Authorization":jwt})
+            return this.http.put<Responsable>(this.apiResponsable+"/update", resp, {headers:httpHeaders}); 
+            }
         
+            getResponsableData(): Observable<any> {
+              const token = this.authService.getToken();
+              if (!token) {
+                throw new Error('No token found.');
+              }
+              const headers = new HttpHeaders({
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              });
+              return this.http.get<any>(`${this.apiResponsable}/data`, { headers });
+            }
+          
+          
+          getPersonnelData(): Observable<any> {
+            const token = this.authService.getToken();
+            if (!token) {
+              throw new Error('No token found.');
+            }
+            const headers = new HttpHeaders({
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            });
+            return this.http.get<any>(this.baseUrl+"/personnel/data", { headers })    
+          }
+        
+          getNotificationData( ): Observable<any> {
+            const token = this.authService.getToken();
+            if (!token) {
+              throw new Error('No token found.');
+            }
+            const headers = new HttpHeaders({
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            });
+            return this.http.get<any>(this.apiNOT+"/data", { headers })    
+          }
+        
+          listeNotificationData( ): Observable<any> {
+            const token = this.authService.getToken();
+            if (!token) {
+              throw new Error('No token found.');
+            }
+            const headers = new HttpHeaders({
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            });
+            return this.http.get<any>(this.apiNOT+"/data", { headers })    
+          }
+        
+        
+          markNotificationsAsRead(notifications: Notification[]): Observable<any> {
+            const token = this.authService.getToken();
+            if (!token) {
+              throw new Error('No token found.');
+            }
+            const headers = new HttpHeaders({
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            });
+            return this.http.put(`${this.apiNOT}/markAsRead`, notifications, { headers });
+          }
+        
+          getCongeData(): Observable<any> {
+            const token = this.authService.getToken();
+            if (!token) {
+              throw new Error('No token found.');
+            }
+            const headers = new HttpHeaders({
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            });
+            return this.http.get<any>(this.apiURLCong+"/data", { headers })    
+          }
+        
+          getPretData(): Observable<any> {
+            const token = this.authService.getToken();
+            if (!token) {
+              throw new Error('No token found.');
+            }
+            const headers = new HttpHeaders({
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            });
+            return this.http.get<any>(this.apiURLP+"/data", { headers })    
+          }
+        
+          getContratData(): Observable<any> {
+            const token = this.authService.getToken();
+            if (!token) {
+              throw new Error('No token found.');
+            }
+            const headers = new HttpHeaders({
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            });
+            return this.http.get<any>(this.apiURLCon+"/data", { headers })    
+          }
+        
+          getAssiduiteData(): Observable<any> {
+            const token = this.authService.getToken();
+            if (!token) {
+              throw new Error('No token found.');
+            }
+            const headers = new HttpHeaders({
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            });
+            return this.http.get<any>(this.apiURLAs+"/data", { headers })    
+          }
+          consulterAdmin(id: number): Observable<Admin> {
+            const url = `${this.apiAdmin}/getbyid/${id}`;
+            let jwt = this.authService.getToken();
+            jwt = "Bearer "+jwt;
+            let httpHeaders = new HttpHeaders({"Authorization":jwt})
+            return this.http.get<Admin>(url,{headers:httpHeaders});
+            }
+
+            getUsers(): Observable<any[]> {
+              const personnels$ = this.http.get<any[]>(this.baseUrl+"/lkol");
+              const admins$ = this.http.get<any[]>(this.apiAdmin+"/all");
+            
+              return forkJoin([personnels$, admins$]).pipe(
+                map(([personnels, admin]) => {
+                  // Ajout d'un type pour différencier les utilisateurs
+                  personnels.forEach(p => p.userType = 'Personnel');
+                  admin.forEach(a => a.userType = 'Admin');
+                  return [...personnels, ...admin];
+                })
+              );
+            }
+            getAdminById(id: number): Observable<Admin> {
+              const url = `${this.apiAdmin}/getbyid/${id}`;
+              return this.http.get<Admin>(url, httpOptions);
+                  }
+  
   }
