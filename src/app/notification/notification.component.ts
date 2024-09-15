@@ -64,6 +64,20 @@ export class NotificationComponent implements OnInit {
       });
     }
   }
+  getRouterLink(type: string): string {
+    switch (type.toLowerCase()) {
+        case 'congé':
+        case 'conge':
+            return 'addConge';
+        case 'absence':
+            return 'addAbsence';
+        case 'prêt':
+        case 'pret':
+            return 'addPret';
+        default:
+            return 'addPret';
+    }
+}
 
   filtrerNotifications() {
     this.notificationsAbsence = this.notifications.filter(

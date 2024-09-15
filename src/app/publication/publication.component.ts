@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./publication.component.css']
 })
 export class PublicationComponent implements OnInit {
-
+  messages: any[] = [];
+  comments: any[] = [];
   successMessage: string = '';
   publications!: Publication[];
   newComments: { [key: number]: string } = {};
@@ -19,6 +20,8 @@ export class PublicationComponent implements OnInit {
   constructor(private personnelService: PersonnelService, private router: Router, public authService: AuthService) {}
 
   ngOnInit(): void {
+    this.messages = []; // Initialisation par défaut
+    this.comments = []; // Initialisation par défaut
     this.loadMessages();
     this.loadCommentsForMessages();
   }

@@ -3,39 +3,45 @@
     <div>
         <h2>Ajouter une absence:</h2>
     </div>
-    <form>
-        <div hidden class="col-sm-2 col-md-2 col-lg-2">
-            <label>ID </label>
-            <input type="text" [(ngModel)]="newAbsence.idAbs" name="idAbs" class="form-control">
+    <form (ngSubmit)="addAbsence()">
+        <div class="row">
+            <!-- Champ caché pour l'ID -->
+            <div class="col-md-6">
+                <div hidden class="mb-3">
+                    <label class="form-label">ID</label>
+                    <input type="text" [(ngModel)]="newAbsence.idAbs" name="idAbs" class="form-control">
+                </div>
+                <!-- Champ pour heures d'absence -->
+                <div class="mb-3">
+                    <label class="form-label">heures Abs(/h)</label>
+                    <input type="number" [(ngModel)]="newAbsence.heuresAbs" name="heuresAbs" class="form-control">
+                </div>
+                <!-- Champ pour le type -->
+                <div class="mb-3">
+                    <label class="form-label">type</label>
+                    <input type="text" [(ngModel)]="newAbsence.typeAbs" name="typeAbs" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!-- Champ pour le statut -->
+                <div class="mb-3">
+                    <label class="form-label">statut</label>
+                    <input type="text" [(ngModel)]="newAbsence.statut" name="statut" class="form-control">
+                </div>
+                <!-- Champ pour sélectionner le personnel correspondant -->
+                <div class="mb-3">
+                    <label class="form-label">personnel correspondant</label>
+                    <select class="form-control" id="idAssiduite" name="idAssiduite" [(ngModel)]="newIdAssiduite">
+                        <option *ngFor="let ab of assiduites" [value]="ab.idAssiduite">
+                            {{ ab.personnel?.nom + ' ' + ab.personnel?.prenom + ' - ' + ab.personnel?.numCin }}
+                        </option>
+                    </select>
+                </div>
+            </div>
         </div>
-        <div class="col-sm-4 col-md-4 col-lg-4">
-            <label>heures Abs</label>
-            <input type="number" [(ngModel)]="newAbsence.heuresAbs" name="heuresAbs" class="form-control">
-        </div>
-        <div class="col-sm-2 col-md-2 col-lg-2">
-            <label>type</label>
-            <input type="text" [(ngModel)]="newAbsence.typeAbs" name="typeAbs" class="form-control">
-        </div>
-
-        <div class="col-sm-4 col-md-4 col-lg-4">
-            <label>statut</label>
-            <input type="text" [(ngModel)]="newAbsence.statut" name="statut" class="form-control">
-        </div>
-    
-
-    <div class="col-sm-4 col-md-4 col-lg-4">
-       <label>personnel correspondant</label>
-       <select class="form-control form-control-lg" id="idAssiduite" name="idAssiduite" [(ngModel)]="newIdAssiduite">
-           <option *ngFor="let ab of assiduites" [value]="ab.idAssiduite">
-               {{ ab.personnel?.nom + '  ' + ab.personnel?.prenom + ' - ' + ab.personnel?.numCin }}
-           </option>
-       </select>
-   </div>
-  
-         
+        <!-- Bouton pour soumettre le formulaire -->
         <div class="mt-2">
-            
-            <button type="submit"  (click)="addAbsence()"class="btn btn-success">ajouter</button>
+            <button type="submit" class="btn btn-success">Ajouter</button>
         </div>
     </form>
 </div>

@@ -101,7 +101,7 @@ const routes: Routes = [
  
   //{ path: 'addDemandePret', component: AddDemandePretComponent },
   {path:'dashboard', component: DashboardComponent },
-  {path: "", redirectTo: "sidebar", pathMatch: "full" },
+  {path: "", redirectTo: "login", pathMatch: "full" },
 
 
 

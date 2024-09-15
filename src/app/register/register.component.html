@@ -36,7 +36,7 @@
             <span *ngIf="myForm.controls['password'].hasError('minlength')&& myForm.controls['password'].touched" class="text-danger"> mot de passe doit contenir au moins 6 caractères </span>
         <div class="form-group">
             <!-- <label>Confirmer Mot de passe :</label> -->
-            <input class="form__input" class="form__input" type="password" name="confirmPassword" formControlName="confirmPassword"placeholder="Confirmer votre E-mail" >
+            <input class="form__input" class="form__input" type="password" name="confirmPassword" formControlName="confirmPassword"placeholder="Confirmer votre mot de passe" >
         </div>
         <span *ngIf="myForm.controls['confirmPassword'].hasError('required')&& myForm.controls['confirmPassword'].touched" class="text-danger"> confirmer mot de passe est obligatoire </span>
         <div>

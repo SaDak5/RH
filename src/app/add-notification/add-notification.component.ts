@@ -3,6 +3,7 @@ import { PersonnelService } from '../services/Personnel.Service';
 import { Router } from '@angular/router';
 import { Personnel } from '../model/personnel.model';
 import { Notification } from '../model/notification.model';
+import { AuthService } from '../services/auth.Service';
 
 @Component({
   selector: 'app-add-notification',
@@ -16,16 +17,22 @@ export class AddNotificationComponent implements OnInit {
   showPart1: boolean = false;
   showPart2: boolean = false;
   showPart3: boolean = false;
+  username: string = '';
   
-  constructor(private personnelService: PersonnelService, private router : Router) {
+  constructor(private personnelService: PersonnelService, private router : Router,private authService: AuthService) {
     // Initialisation du champ 'etat' de newNotification
     this.newNotification.etat = 'en attente';
   }
 
   ngOnInit(): void {
+    this.username = this.authService.getUserName()!;
+    console.log('Nom d\'utilisateur connecté :', this.username);
+
     this.personnelService.listePersonnels().subscribe(personnels => {
       this.personnels = personnels;
     });
+
+    
   }
 
   addNotification() {
@@ -57,5 +64,15 @@ export class AddNotificationComponent implements OnInit {
     this.showPart1 = partNumber === 1;
     this.showPart2 = partNumber === 2;
     this.showPart3 = partNumber === 3;
-  }   
+  }
+  
+  
+  setType(type: string): void {
+    this.newNotification.type = type;
+    this.showPart1 = type === 'absence';
+    this.showPart2 = type === 'congé';
+    this.showPart3 = type === 'pret';
+
+    this.newNotification.username = this.username;
+  }
 }

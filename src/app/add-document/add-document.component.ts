@@ -13,7 +13,7 @@ export class AddDocumentComponent implements OnInit {
   newDocument = new Document();
   personnels: Personnel[] = [];
   selectedPersonnel: Personnel | undefined;
-
+  selectedFile: File | null = null;
   constructor(private personnelService: PersonnelService, private router: Router) {}
 
   ngOnInit(): void {
@@ -22,8 +22,14 @@ export class AddDocumentComponent implements OnInit {
       this.personnels = personnels;
     });
   }
-
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+  }
   addDocument() {
+    if (this.newDocument.type === 'Autres') {
+      this.newDocument.type = this.newDocument.autreType;
+    }
+
     if (this.selectedPersonnel) {
       this.newDocument.personnel = this.selectedPersonnel; // Stocker l'objet Personnel sélectionné
       this.personnelService.ajouterDocument(this.newDocument).subscribe(() => {

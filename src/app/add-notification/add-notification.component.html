@@ -5,9 +5,9 @@
     </div>
     <!-- Boutons pour afficher chaque partie du formulaire -->
     <div class="mb-3">
-        <button type="button" (click)="showPart1 = true; showPart2 = false; showPart3 = false;" class="btn btn-primary">Demande Absence</button>
-        <button type="button" (click)="showPart1 = false; showPart2 = true; showPart3 = false;" class="btn btn-primary">Demande Congé</button>
-        <button type="button" (click)="showPart1 = false; showPart2 = false; showPart3 = true;" class="btn btn-primary">Demande pret</button>
+        <button type="button" (click)="setType('absence')" class="btn btn-primary">Demande Absence</button>
+        <button type="button" (click)="setType('congé')" class="btn btn-primary">Demande Congé</button>
+        <button type="button" (click)="setType('pret')" class="btn btn-primary">Demande prêt</button>
     </div>
 
     <!-- Partie 1 du formulaire -->
@@ -42,7 +42,7 @@
             </div>
 
             <div class="form-group">
-                <label>Période</label>
+                <label>Période(/h)</label>
                 <input type="text" [(ngModel)]="newNotification.periode" name="periode" class="form-control">
             </div>
         </div>
